@@ -1,0 +1,21 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="POReportForSCM.controller.V_Create_PO">
+	<App>
+		<pages title="{i18n>createPoTitle}">
+			<Input width="40%" id="po_" placeholder="{i18n>createPoPlaceHolder}" class="sapUiTinyMargin"/>
+			<Button text="Button" width="130px" id="__button0" press="CreatePO" class="sapUiTinyMargin"/>
+			<!--<form>-->
+			<!--	<Input value="{dataModel>/Qty}" />-->
+			<!--	<Input value="{dataModel>/UOM}"-->
+			<!--</form>-->
+		</pages>
+	</App>
+</mvc:View>
+<!--create method-->
+<!--retrieve json model-->
+<!--var object = {-->
+<!--Qty: dataModel.getProperty("/Qty");-->
+<!--Uom: dataModel.get-->
+<!--}-->
+<!--var oModel = this.getOwnerComponent().getModel();-->
+<!--oModel.create("POHeaderSet", object-->

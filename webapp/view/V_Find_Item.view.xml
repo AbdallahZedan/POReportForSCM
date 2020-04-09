@@ -1,0 +1,24 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_Find_Item">
+	<App>
+		<pages>
+			<Page title="{i18n>findPageTitle}">
+				<content>
+					<VBox width="100%" direction="Column" id="__vbox0" class="sapUiTinyMarginBeginEnd sapUiResponsiveMargin">
+						<items>
+							<Label text="{i18n>PONumber}" width="100%" id="PO_label" class="sapUiTinyMarginTopBottom" design="Bold"/>
+							<ComboBox id="PO_comboBox" width="70%" showSecondaryValues="true" placeholder="{i18n>PONumberPH}" items="{ path: '/POHeaderSet', length: 600, sorter: { path: 'Ebeln' }}">
+								<core:ListItem key="{Ebeln}" text="{Ebeln}" additionalText="{Bukrs}"/>
+							</ComboBox>
+							<Label text="{i18n>ItemNumber}" width="100%" id="item_label" class="sapUiTinyMarginTopBottom" design="Bold"/>
+							<ComboBox id="item_ComboBox" width="70%" showSecondaryValues="true" placeholder="{i18n>ItemPH}" items="{ path: '/POItemSet', length: 600, sorter: { path: 'Ebelp' }}">
+								<core:ListItem key="{Ebelp}" text="{Ebelp}" additionalText="{Txz01}"/>
+							</ComboBox>
+						</items>
+						<Button text="Find" width="100px" id="__button0" class="sapUiSmallMarginTop" press="onFindPressed" icon="sap-icon://sys-find"/>
+					</VBox>
+					
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

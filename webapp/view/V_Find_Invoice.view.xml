@@ -1,0 +1,14 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_Find_Invoice">
+	<App>
+		<pages>
+			<Page title="{i18n>findInvoicePageTitle}">
+				<content>
+					<VBox>
+						<Input width="40%" id="invoice_input" placeholder="{i18n>findInvoicePH}" class="sapUiSmallMarginBottom"/>
+						<Button text="{i18n>findInvoiceButton}" width="150px" id="get_button" press="GetInvoice"/>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

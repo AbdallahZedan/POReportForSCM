@@ -1,0 +1,47 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="POReportForSCM.controller.V_ItemDetail"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="{i18n>ItemPageTitle}">
+				<content>
+					<Table id="it_item">
+						<columns>
+							<Column hAlign="Center">
+								<Text text="PO Document No"/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="PO Doc Item"/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Material"/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Status"/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Deletion ind."/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Description"/>
+							</Column>
+							<Column hAlign="Center">
+								<Text text="Target Quantity"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{Ebeln}"/>
+								<Text text="{Ebelp}"/>
+								<Text text="{Matnr}"/>
+								<Text text="{Statu}"/>
+								<Text text="{Loekz}"/>
+								<Text text="{Txz01}"/>
+								<Text text="{Ktmng}"/>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

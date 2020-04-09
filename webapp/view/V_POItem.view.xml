@@ -1,0 +1,34 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_POItem">
+	<App>
+		<pages>
+			<Page title="{i18n>ItemPageTitle}" showNavButton="true" navButtonPress="GoToFirstView" navButtonTap="GoBack">
+				<content>
+					<Table id="it_item" items="{HeadToItemNav}">
+						<columns>
+							<Column>
+								<Text text="PO Document No"/>
+							</Column>
+							<Column>
+								<Text text="PO Doc Item"/>
+							</Column>
+							<Column>
+								<Text text="Material"/>
+							</Column>
+							<Column>
+								<Text text="Status"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<Text text="{Ebeln}"/>
+								<Text text="{Ebelp}"/>
+								<Text text="{Matnr}"/>
+								<Text text="{Statu}"/>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

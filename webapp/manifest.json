@@ -1,0 +1,233 @@
+{
+	"_version": "1.7.0",
+	"sap.app": {
+		"id": "POReportForSCM",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "ui5template.basicSAPUI5ApplicationProject",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"ZGW_PO3_SRV": {
+				"uri": "https://cicwd.cic.ae:44301//sap/opu/odata/sap/ZGW_PO3_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": ""
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": ["sap_hcb", "sap_belize"]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "POReportForSCM.view.V_Root_View",
+			"type": "XML"
+		},
+		"dependencies": {
+			"minUI5Version": "1.30.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "POReportForSCM.i18n.i18n"
+				}
+			},
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZGW_PO3_SRV",
+				"preload": true
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}, {
+				"uri": "css/small-device.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"viewPath": "POReportForSCM.view",
+				"controlId": "V_Root",
+				"viewLevel": 1,
+				"controlAggregation": "pages",
+				"routerClass": "sap.m.routing.Router"
+			},
+			"targets": {
+				"Target_Basic": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_Basic",
+					"viewLevel": 1
+				},
+				"Target_POHeader": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_POHeader",
+					"viewLevel": 2
+				},
+				"Target_PODetail": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_PODetail",
+					"viewLevel": 3
+				},
+				"Target_POItem": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_POItem",
+					"viewLevel": 4
+				},
+				"Target_CreatePO": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_Create_PO",
+					"viewLevel": 2
+				},
+				"Target_CreateItem": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_CreateItem",
+					"viewLevel": 3
+				},
+				"Target_FindItem": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_Find_Item",
+					"viewLevel": 2
+				},
+				"Target_ItemDetail": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_ItemDetail",
+					"viewLevel": 3
+				},
+				"Target_FindInovice": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_Find_Invoice",
+					"viewLevel": 2
+				},
+				"Target_InvoiceDetil": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "V_Invoice_Detail",
+					"viewLevel": 3
+				}
+			},
+			"routes": [{
+				"name": "Route_Basic",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_Basic"]
+			}, {
+				"name": "Route_POHeader",
+				"pattern": "POHeaderOverview",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_POHeader"]
+			}, {
+				"name": "Route_PODetail",
+				"pattern": "POHeaderSet{SelectedItem}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_PODetail"]
+			}, {
+				"name": "Route_Item",
+				"pattern": "POHeaderSet{SelectedPO}/HeadToItemNav",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_POItem"]
+			}, {
+				"name": "Route_CreatePO",
+				"pattern": "PO/Create",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_CreatePO"]
+			}, {
+				"name": "Route_CreateItem",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_CreateItem"]
+			}, {
+				"name": "Route_FindItem",
+				"pattern": "Item/Find",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_FindItem"]
+			}, {
+				"name": "Route_ItemDetail",
+				"pattern": "Item/Find/{po}/{item}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_ItemDetail"]
+			}, {
+				"name": "Route_FindInvoice",
+				"pattern": "Invoice/Find",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_FindInovice"]
+			}, {
+				"name": "Route_InvoiceDetail",
+				"pattern": "Invoice/Find/{InvoiceRef}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_InvoiceDetil"]
+			}]
+		}
+	}
+}

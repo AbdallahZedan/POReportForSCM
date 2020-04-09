@@ -1,0 +1,26 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="POReportForSCM.controller.V_POHeader">
+	<App>
+		<pages>
+			<Page title="{i18n>HeaderPageTitle}">
+				<ScrollContainer height="100%" width="100%" vertical="true">
+					<content>
+						<List noDataText="Drop list items here" id="POList" items="{ path : '/POHeaderSet', sorter: { path: 'Bsart', group: true } }">
+							<items>
+								<!--<StandardListItem type="Navigation" title="{Ebeln}" description="{Bsart}" id="__item0" press="GoToDetails"/>-->
+								<ObjectListItem title="{Ebeln}" number="{Ernam}" type="Navigation" press="GoToDetails"></ObjectListItem>
+							</items>
+						</List>
+					</content>
+				</ScrollContainer>
+				<headerContent>
+					<Toolbar>
+						<!--<Title text="{i18n>invoiceListTitle}"/>-->
+						<ToolbarSpacer/>
+						<SearchField width="80%" search=".onFilterPO"/>
+					</Toolbar>
+				</headerContent>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
