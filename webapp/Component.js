@@ -1,7 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"POReportForSCM/model/models"
+	"POReportForSCM/model/models",
+	"POReportForSCM/util/raphael-2.1.4.min",
+	"POReportForSCM/util/justgage"
 ], function(UIComponent, Device, models) {
 	"use strict";
 

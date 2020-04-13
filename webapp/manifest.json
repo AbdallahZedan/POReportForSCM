@@ -15,7 +15,7 @@
 		},
 		"dataSources": {
 			"ZGW_PO3_SRV": {
-				"uri": "https://cicwd.cic.ae:44301//sap/opu/odata/sap/ZGW_PO3_SRV/",
+				"uri": "https://cicwd.cic.ae:44301/sap/opu/odata/sap/ZGW_PO3_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0",
@@ -103,6 +103,13 @@
 					"viewName": "V_Basic",
 					"viewLevel": 1
 				},
+				"Target_Gauges": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "Gauges",
+					"viewLevel": 2
+				},
 				"Target_POHeader": {
 					"viewType": "XML",
 					"transition": "slide",
@@ -173,6 +180,12 @@
 				"titleTarget": "",
 				"greedy": false,
 				"target": ["Target_Basic"]
+			}, {
+				"name": "Route_Gauges",
+				"pattern": "Gauges",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_Gauges"]
 			}, {
 				"name": "Route_POHeader",
 				"pattern": "POHeaderOverview",

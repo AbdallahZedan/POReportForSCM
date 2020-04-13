@@ -33,6 +33,11 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Route_FindInvoice", {});
 
+		},
+
+		onGaugesPress: function(oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Route_Gauges", {});
 		}
 
 		/**

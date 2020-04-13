@@ -1,41 +1,43 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_Basic">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="POReportForSCM.controller.V_Basic">
 	<App>
-			<Page title="{i18n>BasicPageTitle}" enableScrolling="false" showNavButton="false">
-			
-		<subHeader>
-			<Toolbar>
-				<ToolbarSpacer/>
-				<Text text="{i18n>pageHeader}"/>
-				<ToolbarSpacer/>
-			</Toolbar>
-
-		</subHeader>
-		<content>
-			<HBox>
-				<Button text="{i18n>overviewButton}" press="onOverviewPress">
-					<layoutData>
-						<FlexItemData growFactor="1"/>
-					</layoutData>
-				</Button>
-				<Button type="Accept" text="{i18n>CreatePOButton}" press="onCreatePoPress">
-					<layoutData>
-						<FlexItemData growFactor="1"/>
-					</layoutData>
-				</Button>
-				<Button type="Reject" text="{i18n>findItemButton}" press="onFindItemPress">
-					<layoutData>
-						<FlexItemData growFactor="1"/>
-					</layoutData>
-			    </Button>
-				<Button type="Reject" text="{i18n>FindInvoiceButton}" press="onFindInvoicePress">
-					<layoutData>
-						<FlexItemData growFactor="1"/>
-					</layoutData>
-			    </Button>
-
-			</HBox>
-
-		</content>
-			</Page>
+		<Page title="{i18n>BasicPageTitle}" enableScrolling="false" showNavButton="false">
+			<subHeader>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Text text="{i18n>pageHeader}"/>
+					<ToolbarSpacer/>
+				</Toolbar>
+			</subHeader>
+			<content>
+				<HBox>
+					<Button text="{i18n>overviewButton}" press="onOverviewPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button type="Accept" text="{i18n>CreatePOButton}" press="onCreatePoPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button type="Reject" text="{i18n>findItemButton}" press="onFindItemPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button type="Reject" text="{i18n>FindInvoiceButton}" press="onFindInvoicePress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button type="Reject" text="{i18n>GaugesButton}" press="onGaugesPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+				</HBox>
+			</content>
+		</Page>
 	</App>
 </mvc:View>
