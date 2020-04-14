@@ -211,6 +211,12 @@
 				"greedy": false,
 				"target": ["Target_CreatePO"]
 			}, {
+				"name": "Route_ChangePO",
+				"pattern": "PO/Change/{selectedPO}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_CreatePO"]
+			}, {
 				"name": "Route_CreateItem",
 				"pattern": "",
 				"titleTarget": "",

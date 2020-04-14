@@ -1,9 +1,8 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="POReportForSCM.controller.V_Create_PO">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_Create_PO">
 	<App>
 		<pages>
 			<Page title="{i18n>createPoTitle}">
-				<Panel expandable="true" expanded="false" headerText="{i18n>headerPOTitle}" width="auto" class="sapUiResponsiveMargin">
+				<Panel expandable="true" headerText="{i18n>headerPOTitle}" width="auto" class="sapUiResponsiveMargin" expanded="true">
 					<content>
 						<sap.ui.layout.form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form1">
 							<sap.ui.layout.form:formContainers>
@@ -14,9 +13,9 @@
 												<Input width="50%" id="companyCode_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="Plant" id="plant_label">
+										<sap.ui.layout.form:FormElement label="vendor" id="vendor_label">
 											<sap.ui.layout.form:fields>
-												<Input width="50%" id="plant_input"/>
+												<Input width="50%" id="vendor_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
 									</sap.ui.layout.form:formElements>
@@ -28,7 +27,7 @@
 						</sap.ui.layout.form:Form>
 					</content>
 				</Panel>
-				<Panel expandable="true" expanded="false" headerText="{i18n>itemTitle}" width="auto" class="sapUiResponsiveMargin">
+				<Panel expandable="true" expanded="true" headerText="{i18n>itemTitle}" width="auto" class="sapUiResponsiveMargin">
 					<content>
 						<sap.ui.layout.form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form2">
 							<sap.ui.layout.form:formContainers>
@@ -39,14 +38,14 @@
 												<Input width="50%" id="material_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="Batch" id="eleBatchNo">
+										<sap.ui.layout.form:FormElement label="Status" id="status_label">
 											<sap.ui.layout.form:fields>
-												<Input width="50%" id="batch_input"/>
+												<Input width="50%" id="status_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="Quantity" id="eleQty">
+										<sap.ui.layout.form:FormElement label="Short Text" id="shorText_label">
 											<sap.ui.layout.form:fields>
-												<Input width="50%" id="quantity_input"/>
+												<Input width="50%" id="txz01_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
 									
@@ -64,7 +63,7 @@
 							<ToolbarSpacer/>
 							<Button icon="sap-icon://sys-minus" text="Delete Row" type="Reject" press="onDelete"/>
 							<!--<ToolbarSpacer/>-->
-							<Button icon="sap-icon://save" text="Save" type="Accept" press="onSave"/>
+							<Button text="Save" type="Accept" press="onSave" id="save_button" icon="sap-icon://save"/>
 						</Toolbar>
 					</headerToolbar>
 				</Panel>
@@ -75,8 +74,8 @@
 								<ColumnListItem id="itemlist">
 									<cells>
 										<Text text="{Material}" id="Material"/>
-										<Text text="{Batch}" id="Batch"/>
-										<Text text="{Quantity}" id="Quantity"/>
+										<Text text="{Status}" id="status"/>
+										<Text text="{short_text}" id="short_text"/>
 									</cells>
 								</ColumnListItem>
 							</items>
@@ -88,12 +87,12 @@
 								</Column>
 								<Column id="batch">
 									<header>
-										<Label text="Batch" id="batch_id"/>
+										<Label text="Status" id="status_id"/>
 									</header>
 								</Column>
 								<Column id="quan">
 									<header>
-										<Label text="Quantity" id="quan_id"/>
+										<Label text="Short text" id="text_id"/>
 									</header>
 								</Column>
 							</columns>
@@ -104,17 +103,3 @@
 		</pages>
 	</App>
 </mvc:View>
-<!--<Input width="40%" id="po_" placeholder="{i18n>createPoPlaceHolder}" class="sapUiTinyMargin"/>-->
-<!--<Button text="Button" width="130px" id="__button0" press="CreatePO" class="sapUiTinyMargin"/>-->
-<!--<form>-->
-<!--	<Input value="{dataModel>/Qty}" />-->
-<!--	<Input value="{dataModel>/UOM}"-->
-<!--</form>-->
-<!--create method-->
-<!--retrieve json model-->
-<!--var object = {-->
-<!--Qty: dataModel.getProperty("/Qty");-->
-<!--Uom: dataModel.get-->
-<!--}-->
-<!--var oModel = this.getOwnerComponent().getModel();-->
-<!--oModel.create("POHeaderSet", object-->

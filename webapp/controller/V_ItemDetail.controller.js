@@ -18,6 +18,7 @@ sap.ui.define([
 			
 
 			_onRouteFound: function(oEvent) {
+debugger;
 				var oArgument = oEvent.getParameter("arguments");
 				var po = oArgument.po;
 				var item = oArgument.item;

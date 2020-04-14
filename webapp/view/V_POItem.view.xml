@@ -3,7 +3,7 @@
 		<pages>
 			<Page title="{i18n>ItemPageTitle}" showNavButton="true" navButtonPress="GoToFirstView" navButtonTap="GoBack">
 				<content>
-					<Table id="it_item" items="{HeadToItemNav}">
+					<Table id="it_item" items="{POItemSet}">
 						<columns>
 							<Column>
 								<Text text="PO Document No"/>

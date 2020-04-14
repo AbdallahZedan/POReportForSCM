@@ -12,9 +12,15 @@ sap.ui.define([
 		 * @memberOf POReportForSCM.view.V_Create_PO
 		 */
 		onInit: function() {
-			var oModel = new JSONModel();
-			this.getView().byId("packItem").setModel(oModel);
 
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			var oModel = new JSONModel();
+
+			// 			var oArgument = oEvt.getParameter("arguments");
+			// 			var po = oArgument.selectedPO;
+			debugger;
+			this.getView().byId("packItem").setModel(oModel);
+			oRouter.getRoute("Route_ChangePO").attachMatched(this._onRouteFound, this);
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// oRouter.getRoute("Route_createPO").attachMatched(this._onRouteFound, this);
 
@@ -26,26 +32,87 @@ sap.ui.define([
 			// }, this);	dataModel 
 		},
 
+		_onRouteFound: function(oEvt) {
+			debugger;
+			//var v_res = oEvent.getSource().getParent().getBindingContext().getObject().Ebeln;
+			var oArgument = oEvt.getParameter("arguments");
+			var po = oArgument.selectedPO;
+			var SRVModel = this.getOwnerComponent().getModel();
+			// var oTable = this.getView().byId("packItem");
+			var packItemModel = this.getView().byId("packItem").getModel();
+			var itemData = packItemModel.getProperty("/data");
+			var json;
+			if (po) {
+				var service_url = "/POHeaderSet('" + po + "')";
+				var lifnr_url = service_url + "/Lifnr";
+				var bukrs_url = service_url + "/Bukrs";
+				var items_url = service_url + "/POItemSet";
+				var lifnr = SRVModel.getObject(lifnr_url);
+				var bukrs = SRVModel.getObject(bukrs_url);
+				this.getView().byId("companyCode_input").setValue(bukrs);
+				this.getView().byId("vendor_input").setValue(lifnr);
+				this.getView().byId("save_button").setText("Change");
+				this.getView().byId("save_button").setIcon("sap-icon://edit-outside");
+				// var object = SRVModel.getObject(service_url+"/POItemSet");
+
+				SRVModel.read(items_url, {
+					success: function(oRetrievedResult) {
+						var json = new sap.ui.model.json.JSONModel(oRetrievedResult);
+						var result = json.getProperty("/results");
+						for (var i = 0; i < result.length; i++) {
+							// oData.popup.menuitem[1].onclick
+							var itemRow = {
+								Material: result[i].Matnr,
+								Status: result[i].Statu,
+								short_text: result[i].Txz01,
+								// Unit: unit
+							};
+
+							if (typeof itemData !== "undefined" && itemData !== null && itemData.length > 0) {
+								//apend to existed rows
+								itemData.push(itemRow);
+							} else {
+								//append empty row
+								itemData = [];
+								itemData.push(itemRow);
+							}
+							packItemModel.setData({
+								data: itemData
+							});
+						}
+
+						debugger; /* do something */
+
+					},
+					error: function(oError) { /* do something */
+						debugger;
+					}
+				});
+				// oTable.setModel(json);
+				// oTable.bindAggregation("data", { path: "/results"});				
+				debugger;
+			}
+		},
+
 		onPickPressed: function(oEvent) {
 
-
 			var companyCode = this.getView().byId("companyCode_input").getValue();
-			var plant = this.getView().byId("plant_input").getValue();
+			var vendor = this.getView().byId("vendor_input").getValue();
 
-			if (companyCode == "" && plant == "") {
+			if (companyCode == "" && vendor == "") {
 				alert("invalid");
 			}
 
 			var material = this.getView().byId("material_input").getValue();
-			var batch = this.getView().byId("batch_input").getValue();
-			var quantity = this.getView().byId("quantity_input").getValue();
+			var status = this.getView().byId("status_input").getValue();
+			var short_text = this.getView().byId("txz01_input").getValue();
 			// var unit = this.getView().byId("UOM_input").getValue();
-			if (material != "" && batch != "" && quantity != "" /*&& unit != ""*/) {
+			if (material != "" && status != "" && short_text != "" /*&& unit != ""*/ ) {
 
 				var itemRow = {
 					Material: material,
-					Batch: batch,
-					Quantity: quantity,
+					Status: status,
+					short_text: short_text,
 					// Unit: unit
 				};
 				//initalize model to bind item rows
@@ -68,12 +135,12 @@ sap.ui.define([
 
 				//clear all inputs to be ready insert another item
 				this.getView().byId("material_input").setValue("");
-				this.getView().byId("quantity_input").setValue("");
-				this.getView().byId("batch_input").setValue("");
+				this.getView().byId("status_input").setValue("");
+				this.getView().byId("txz01_input").setValue("");
 				// this.getView().byId("UOM_input").setValue("");
 
 			} else {
-				alert("Material/Batch/Quantity/UOM cannot be blank");
+				alert("Material/status/short text cannot be blank");
 			};
 
 		},
@@ -119,32 +186,32 @@ sap.ui.define([
 
 			for (var iRowIndex = 0; iRowIndex < oItems.length; iRowIndex++) {
 				var l_material = oModel.getProperty("Material", oItems[iRowIndex].getBindingContext());
-				var l_batch = oModel.getProperty("Batch", oItems[iRowIndex].getBindingContext());
-				var l_quantity = oModel.getProperty("Quantity", oItems[iRowIndex].getBindingContext());
+				var l_status = oModel.getProperty("Status", oItems[iRowIndex].getBindingContext());
+				var l_short_text = oModel.getProperty("short_text", oItems[iRowIndex].getBindingContext());
 				// var l_unit = oModel.getProperty("Unit", oItems[iRowIndex].getBindingContext());
 
 				itemData.push({
-					Batch: l_batch,
 					Matnr: l_material,
-					Qty: l_quantity,
+					Statu: l_status,
+					Txz01: l_short_text,
 					// Uom: l_unit,
 				});
 			}
 
 			//get header data
 			var companyCode = this.getView().byId("companyCode_input").getValue();
-			var plant = this.getView().byId("plant_input").getValue();
+			var vendor = this.getView().byId("vendor_input").getValue();
 
 			//create an object to hold all data
 			var oEntry1 = {};
 
 			oEntry1.Bukrs = companyCode;
-			oEntry1.Werks = plant;
+			oEntry1.Lifnr = vendor;
 			//item table
-			oEntry1.Stack_HU_Pack_MatSet = itemData;
+			oEntry1.POItemSet = itemData;
 			var createPOModel = this.getOwnerComponent().getModel();
 
-			createPOModel.create("/Stack_HU_HeadSet", oEntry1, {
+			createPOModel.create("/POHeaderSet", oEntry1, {
 
 				success: function(oData, oResponse) {
 					alert("The backend SAP System is Connected Successfully");
@@ -183,26 +250,20 @@ sap.ui.define([
 
 		},
 
-		// _onRouteFound: function(oEvent) {
-		// 	var oArgument = oEvent.getParameter("arguments");
-		// 	var oView = this.getView();
-		// 	oView.bindElement({
-		// 		path: "/POHeaderSet('" + oArgument.SelectedItem + "')"
-		// 	});
-		// },
+		onExit: function() {
+			this.getView().destroy();
+			// clear table and inputs
+			debugger;
+			this.getView().byId("companyCode_input").setValue("");
+			this.getView().byId("vendor_input").setValue("");
 
-		CreatePO: function(evt) {
-
-			var oView = this.getView();
-			var poValue = oView.byId("po_input").getValue();
-
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-
-			oRouter.navTo("Router_CreateItems", {
-				po_input: poValue
+			var oModel = this.getView().byId("packItem").getModel();
+			var itemData = oModel.getProperty("/data");
+			itemData = [];
+			oModel.setData({
+				data: itemData
 			});
-		}
-
+		},
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).
