@@ -19,7 +19,7 @@
 							<Input id="ebelp_input" width="70%" showValueHelp="true" placeholder="{i18n>ItemPH}" valueHelpRequest=".handleValueHelp"/>
 							<!--</ComboBox>-->
 						</items>
-						<Button text="Find" width="100px" id="__button0" class="sapUiSmallMarginTop" press="onFindPressed" icon="sap-icon://sys-find"/>
+						<Button text="{i18n>find}" width="100px" id="__button0" class="sapUiSmallMarginTop" press="onFindPressed" icon="sap-icon://sys-find"/>
 					</VBox>
 				</content>
 			</Page>

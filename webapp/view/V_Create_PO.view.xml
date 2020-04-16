@@ -8,12 +8,12 @@
 							<sap.ui.layout.form:formContainers>
 								<sap.ui.layout.form:FormContainer id="__container1">
 									<sap.ui.layout.form:formElements>
-										<sap.ui.layout.form:FormElement label="Company Code" id="CompanyCode_Label">
+										<sap.ui.layout.form:FormElement label="{i18n>bukrs}" id="CompanyCode_Label">
 											<sap.ui.layout.form:fields>
 												<Input width="50%" id="companyCode_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="vendor" id="vendor_label">
+										<sap.ui.layout.form:FormElement label="{i18n>lifnr}" id="vendor_label">
 											<sap.ui.layout.form:fields>
 												<Input width="50%" id="vendor_input"/>
 											</sap.ui.layout.form:fields>
@@ -33,17 +33,17 @@
 							<sap.ui.layout.form:formContainers>
 								<sap.ui.layout.form:FormContainer id="__container2">
 									<sap.ui.layout.form:formElements>
-										<sap.ui.layout.form:FormElement label="Material Number" id="eleMaterialNo">
+										<sap.ui.layout.form:FormElement label="{i18n>matnr}" id="eleMaterialNo">
 											<sap.ui.layout.form:fields>
 												<Input width="50%" id="material_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="Status" id="status_label">
+										<sap.ui.layout.form:FormElement label="{i18n>statu}" id="status_label">
 											<sap.ui.layout.form:fields>
 												<Input width="50%" id="status_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-										<sap.ui.layout.form:FormElement label="Short Text" id="shorText_label">
+										<sap.ui.layout.form:FormElement label="{i18n>short_text}" id="shorText_label">
 											<sap.ui.layout.form:fields>
 												<Input width="50%" id="txz01_input"/>
 											</sap.ui.layout.form:fields>
@@ -59,11 +59,11 @@
 					</content>
 					<headerToolbar>
 						<Toolbar height="3rem">
-							<Button icon="sap-icon://add" text="Pack Item" type="Emphasized" press="onPickPressed"/>
+							<Button icon="sap-icon://add" text="{i18n>PackButton}" type="Emphasized" press="onPickPressed"/>
 							<ToolbarSpacer/>
-							<Button icon="sap-icon://sys-minus" text="Delete Row" type="Reject" press="onDelete"/>
+							<Button icon="sap-icon://sys-minus" text="{i18n>deleteButton}" type="Reject" press="onDelete"/>
 							<!--<ToolbarSpacer/>-->
-							<Button text="Save" type="Accept" press="onSave" id="save_button" icon="sap-icon://save"/>
+							<Button text="{i18n>saveButton}" type="Accept" press="onSave" id="save_button" icon="sap-icon://save"/>
 						</Toolbar>
 					</headerToolbar>
 				</Panel>
@@ -84,29 +84,29 @@
 							<columns>
 									<Column id="Edit">
 									<header>
-										<Label text="Edit" id="Edit_id"/>
+										<Label text="{i18n>edit}" id="Edit_id"/>
 									</header>
 								</Column>
 								
 									<Column id="Item">
 									<header>
-										<Label text="Item" id="Item_id"/>
+										<Label text="{i18n>ItemNumber}" id="Item_id"/>
 									</header>
 								</Column>
 								
 								<Column id="material">
 									<header>
-										<Label text="Material" id="material_id"/>
+										<Label text="{i18n>matnr}" id="material_id"/>
 									</header>
 								</Column>
 								<Column id="batch">
 									<header>
-										<Label text="Status" id="status_id"/>
+										<Label text="{i18n>statu}" id="status_id"/>
 									</header>
 								</Column>
 								<Column id="quan">
 									<header>
-										<Label text="Short text" id="text_id"/>
+										<Label text="{i18n>short_text}" id="text_id"/>
 									</header>
 								</Column>
 							</columns>

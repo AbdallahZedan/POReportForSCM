@@ -11,8 +11,8 @@
 							<Text text="Created By: {Ernam}" id="__text3" class="sapUiSmallMargainTop"/>
 						</items>
 					</VBox>
-					<Button width="200px" id="__button0" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Show PO Items" icon="sap-icon://arrow-right" press="GoToPOItem"/>
-					<Button width="200px" id="__button1" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="Change Items" icon="sap-icon://edit" press="ChangePOItems"/>
+					<Button width="200px" id="__button0" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>showPoItem}" icon="sap-icon://arrow-right" press="GoToPOItem"/>
+					<Button width="200px" id="__button1" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>ChangeItem}" icon="sap-icon://edit" press="ChangePOItems"/>
 				</content>
 			</Page>
 		</pages>

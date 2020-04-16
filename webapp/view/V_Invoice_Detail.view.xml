@@ -4,7 +4,7 @@
 		<pages>
 			<Page title="{i18n>InvoiceDetailPageTitle}">
 				<content>
-					<List noDataText="No data found" id="list">
+					<List noDataText="{i18n>noData}" id="list">
 						<items>
 							<ObjectListItem>
 								<attributes>

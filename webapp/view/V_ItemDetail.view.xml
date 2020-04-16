@@ -7,25 +7,25 @@
 					<Table id="it_item">
 						<columns>
 							<Column hAlign="Center">
-								<Text text="PO Document No"/>
+								<Text text="{i18n>PONumber}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="PO Doc Item"/>
+								<Text text="{i18n>ItemNumber}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="Material"/>
+								<Text text="{i18n>matnr}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="Status"/>
+								<Text text="{i18n>statu}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="Deletion ind."/>
+								<Text text="{i18n>Loekz}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="Description"/>
+								<Text text="{i18n>txz01}}"/>
 							</Column>
 							<Column hAlign="Center">
-								<Text text="Target Quantity"/>
+								<Text text="{i18n>Ktmng}"/>
 							</Column>
 						</columns>
 						<items>

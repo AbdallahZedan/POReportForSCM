@@ -29,14 +29,30 @@
 <!--	</TableSelectDialog>-->
 <!--</core:FragmentDefinition>-->
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog id="searchHelp_id" title="Search Help">
-		<List class="sapUiResponsiveMargin" width="auto" items="{/ZJ1bnfeEbelpForEbelnSet}">
-			<items>
-				<ObjectListItem  type="Navigation" press="onCloseDialog" title="{Ebeln}" number="{Ebelp}"/>
-			</items>
-		</List>
+	<Dialog id="searchHelp_id" title="{i18n>SearchHelpDialogTitle}">
+		<Table class="sapUiResponsiveMargin" width="auto" items="{/ZJ1bnfeEbelpForEbelnSet}">
+			<columns>
+					<Column>
+						<Text text="{i18n>PONumber}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>ItemNumber}"/>
+					</Column>
+				</columns>
+			<!--<List >-->
+				<items>
+					<ColumnListItem  type="Navigation" press="onCloseDialog">
+						<cells>
+							<Text text="{Ebeln}"/>
+							<Text text="{Ebelp}"/>
+						</cells>
+					</ColumnListItem>
+					<!--<ObjectListItem type="Navigation" press="onCloseDialog" title="{Ebeln}" number="{Ebelp}"/>-->
+				</items>
+			<!--</List>-->
+		</Table>
 		<beginButton>
-			<Button text="Cancel" press="onCancelPressed"/>
+			<Button text="{i18n>CancelButton}" press="onCancelPressed"/>
 		</beginButton>
 	</Dialog>
 </core:FragmentDefinition>

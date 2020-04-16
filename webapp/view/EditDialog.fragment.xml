@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<Dialog title="Selected Data">
+	<Dialog title="{i18n>changeItemTitle}">
 		<content>
 			<f:SimpleForm id="SimpleFormDisplay354" minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" title="Product Details" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
 				<f:content>
@@ -13,7 +13,7 @@
 			</f:SimpleForm>
 		</content>
 		<buttons>
-			<Button text="OK" press="onButtonPress"/>
+			<Button text="{i18n>okButton}" press="onButtonPress"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

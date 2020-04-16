@@ -6,16 +6,16 @@
 					<Table id="it_item" items="{POItemSet}">
 						<columns>
 							<Column>
-								<Text text="PO Document No"/>
+								<Text text="{i18n>PONumber}"/>
 							</Column>
 							<Column>
-								<Text text="PO Doc Item"/>
+								<Text text="{i18n>itemTitle}"/>
 							</Column>
 							<Column>
-								<Text text="Material"/>
+								<Text text="{i18n>matnr}"/>
 							</Column>
 							<Column>
-								<Text text="Status"/>
+								<Text text="{i18n>statu}"/>
 							</Column>
 						</columns>
 						<items>
