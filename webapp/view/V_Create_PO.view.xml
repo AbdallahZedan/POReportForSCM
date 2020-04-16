@@ -71,8 +71,10 @@
 					<content>
 						<Table id="packItem" items="{/data}" mode="MultiSelect" growing="true" growingThreshold="4" growingScrollToLoad="false">
 							<items>
-								<ColumnListItem id="itemlist">
+								<ColumnListItem id="itemlist" type="Navigation" press=".onItemPressed">
 									<cells>
+										<core:Icon class="IconStyle" press="onIconPress" src="sap-icon://edit"/>
+										<Text text="{item_text}" id="item_text"/>
 										<Text text="{Material}" id="Material"/>
 										<Text text="{Status}" id="status"/>
 										<Text text="{short_text}" id="short_text"/>
@@ -80,6 +82,18 @@
 								</ColumnListItem>
 							</items>
 							<columns>
+									<Column id="Edit">
+									<header>
+										<Label text="Edit" id="Edit_id"/>
+									</header>
+								</Column>
+								
+									<Column id="Item">
+									<header>
+										<Label text="Item" id="Item_id"/>
+									</header>
+								</Column>
+								
 								<Column id="material">
 									<header>
 										<Label text="Material" id="material_id"/>

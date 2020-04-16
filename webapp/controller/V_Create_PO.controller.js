@@ -1,11 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
-], function(Controller, JSONModel) {
+], function(Controller, Fragment, JSONModel /*, Fragment*/ ) {
 	"use strict";
 
 	return Controller.extend("POReportForSCM.controller.V_Create_PO", {
-
+		_oDialog: null,
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -16,9 +17,9 @@ sap.ui.define([
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var oModel = new JSONModel();
 
+			this.myLocalModel = new sap.ui.model.json.JSONModel();
 			// 			var oArgument = oEvt.getParameter("arguments");
 			// 			var po = oArgument.selectedPO;
-			debugger;
 			this.getView().byId("packItem").setModel(oModel);
 			oRouter.getRoute("Route_ChangePO").attachMatched(this._onRouteFound, this);
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -33,7 +34,7 @@ sap.ui.define([
 		},
 
 		_onRouteFound: function(oEvt) {
-			debugger;
+
 			//var v_res = oEvent.getSource().getParent().getBindingContext().getObject().Ebeln;
 			var oArgument = oEvt.getParameter("arguments");
 			var po = oArgument.selectedPO;
@@ -44,15 +45,20 @@ sap.ui.define([
 			var json;
 			if (po) {
 				var service_url = "/POHeaderSet('" + po + "')";
+				var ebeln_url = service_url + "/Ebeln";
 				var lifnr_url = service_url + "/Lifnr";
 				var bukrs_url = service_url + "/Bukrs";
 				var items_url = service_url + "/POItemSet";
+				var ebeln = SRVModel.getObject(ebeln_url);
 				var lifnr = SRVModel.getObject(lifnr_url);
 				var bukrs = SRVModel.getObject(bukrs_url);
 				this.getView().byId("companyCode_input").setValue(bukrs);
 				this.getView().byId("vendor_input").setValue(lifnr);
 				this.getView().byId("save_button").setText("Change");
 				this.getView().byId("save_button").setIcon("sap-icon://edit-outside");
+				var oJson = {};
+				oJson.ebeln = ebeln;
+				this.myLocalModel.setData(oJson);
 				// var object = SRVModel.getObject(service_url+"/POItemSet");
 
 				SRVModel.read(items_url, {
@@ -65,7 +71,8 @@ sap.ui.define([
 								Material: result[i].Matnr,
 								Status: result[i].Statu,
 								short_text: result[i].Txz01,
-								// Unit: unit
+								item_text: result[i].Ebelp
+									// Unit: unit
 							};
 
 							if (typeof itemData !== "undefined" && itemData !== null && itemData.length > 0) {
@@ -81,16 +88,13 @@ sap.ui.define([
 							});
 						}
 
-						debugger; /* do something */
-
 					},
 					error: function(oError) { /* do something */
-						debugger;
+
 					}
 				});
 				// oTable.setModel(json);
 				// oTable.bindAggregation("data", { path: "/results"});				
-				debugger;
 			}
 		},
 
@@ -178,7 +182,8 @@ sap.ui.define([
 		},
 
 		onSave: function(oEvent) {
-			debugger;
+			var nameOfButton = this.getView().byId("save_button").getText();
+			var ebeln = this.myLocalModel.oData.ebeln;
 			var oTable = this.getView().byId("packItem");
 			var oModel = oTable.getModel();
 			var oItems = oTable.getItems();
@@ -188,13 +193,15 @@ sap.ui.define([
 				var l_material = oModel.getProperty("Material", oItems[iRowIndex].getBindingContext());
 				var l_status = oModel.getProperty("Status", oItems[iRowIndex].getBindingContext());
 				var l_short_text = oModel.getProperty("short_text", oItems[iRowIndex].getBindingContext());
+				var l_item = oModel.getProperty("item_text", oItems[iRowIndex].getBindingContext());
 				// var l_unit = oModel.getProperty("Unit", oItems[iRowIndex].getBindingContext());
 
 				itemData.push({
 					Matnr: l_material,
 					Statu: l_status,
 					Txz01: l_short_text,
-					// Uom: l_unit,
+					Ebelp: l_item
+						// Uom: l_unit,
 				});
 			}
 
@@ -209,9 +216,12 @@ sap.ui.define([
 			oEntry1.Lifnr = vendor;
 			//item table
 			oEntry1.POItemSet = itemData;
-			var createPOModel = this.getOwnerComponent().getModel();
+			if (nameOfButton == "Change") {
+				oEntry1.Ebeln = ebeln;
+			}
+			var POModel = this.getOwnerComponent().getModel();
 
-			createPOModel.create("/POHeaderSet", oEntry1, {
+			POModel.create("/POHeaderSet", oEntry1, {
 
 				success: function(oData, oResponse) {
 					alert("The backend SAP System is Connected Successfully");
@@ -250,10 +260,38 @@ sap.ui.define([
 
 		},
 
+		/*onItemPressed*/
+		onIconPress: function(oEvent) {
+			// var aa = event.getSource().getSelectedItem();
+			// var oColumnListItem = oEvent.getSource().getBindingContext("itemlist").getObject();
+			// var oTable = this.getView().byId("packItem");
+			// var aContexts = oTable.getSelectedContexts();
+			// var oModel2 = oTable.getModel();
+			// var aRows = oModel2.getData().data;
+			// debugger;
+			// var a = oEvent.getSource().getSelectedItem().getBindingContext().getObject();
+			// alert(a);
+
+			var oSelectedItem = oEvent.getSource().getParent();
+			var oBindingContext = oSelectedItem.getBindingContext();
+			if (!this._oDialog) {
+				this._oDialog = sap.ui.xmlfragment("POReportForSCM.view.EditDialog", this);
+			}
+			var oModel = this.getView().byId("packItem").getModel();
+			this._oDialog.setBindingContext(oBindingContext);
+			this._oDialog.setModel(oModel);
+			this._oDialog.open();
+
+		},
+
+		onButtonPress: function(oEvent) {
+			var oDialog = oEvent.getSource().getParent();
+			oDialog.close();
+		},
+
 		onExit: function() {
 			this.getView().destroy();
-			// clear table and inputs
-			debugger;
+
 			this.getView().byId("companyCode_input").setValue("");
 			this.getView().byId("vendor_input").setValue("");
 
@@ -264,6 +302,7 @@ sap.ui.define([
 				data: itemData
 			});
 		},
+
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 		 * (NOT before the first rendering! onInit() is used for that one!).

@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog title="Selected Data">
+		<content>
+			<f:SimpleForm id="SimpleFormDisplay354" minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" title="Product Details" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1" columnsM="1">
+				<f:content>
+					<Label text="Material"/>
+					<Input value="{Material}"/>
+					<Label text="Status"/>
+					<Input value="{Status}"/>
+					<Label text="Short Text"/>
+					<Input value="{short_text}"/>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<buttons>
+			<Button text="OK" press="onButtonPress"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

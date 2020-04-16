@@ -38,7 +38,7 @@ sap.ui.define([
 			var aFilter = [];
 			var sQuery = oEvent.getParameter("query");
 			if (sQuery) {
-				aFilter.push(new Filter("Ebeln", FilterOperator.Contains, sQuery));
+				aFilter.push(new Filter("Ebeln", FilterOperator.eq, sQuery));
 			}
 			debugger;
 			// filter binding

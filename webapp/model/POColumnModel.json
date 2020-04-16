@@ -1,0 +1,13 @@
+{
+	"cols": [
+		{
+			"label": "Purchase Document",
+			"template": "poDoc",
+			"width": "5rem"
+		},
+		{
+			"label": "Item",
+			"template": "item"
+		}
+	]
+}
