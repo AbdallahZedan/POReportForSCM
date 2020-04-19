@@ -1,7 +1,8 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_PODetail">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="POReportForSCM.controller.V_PODetail">
 	<App>
 		<pages>
-			<Page title="{i18n>HeaderDetailsTitle}" showNavButton="true" navButtonTap="GoToHeader">
+			<Page title="{i18n>HeaderDetailsTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<VBox width="100%" direction="Column" id="__vbox0" class="sapUiSmallMarginBegin sapUiSmallMarginTop">
 						<items>
@@ -11,8 +12,10 @@
 							<Text text="Created By: {Ernam}" id="__text3" class="sapUiSmallMargainTop"/>
 						</items>
 					</VBox>
-					<Button width="200px" id="__button0" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>showPoItem}" icon="sap-icon://arrow-right" press="GoToPOItem"/>
-					<Button width="200px" id="__button1" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>ChangeItem}" icon="sap-icon://edit" press="ChangePOItems"/>
+					<Button width="200px" id="__button0" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>showPoItem}"
+						icon="sap-icon://arrow-right" press="GoToPOItem"/>
+					<Button width="200px" id="__button1" class="sapUiLargeMarginBegin sapUiSmallMarginTop" text="{i18n>ChangeItem}" icon="sap-icon://edit"
+						press="ChangePOItems"/>
 				</content>
 			</Page>
 		</pages>

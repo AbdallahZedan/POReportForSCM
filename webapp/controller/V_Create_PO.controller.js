@@ -1,11 +1,11 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"POReportForSCM/controller/BaseController",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
-], function(Controller, Fragment, JSONModel /*, Fragment*/ ) {
+], function(BaseController, Fragment, JSONModel /*, Fragment*/ ) {
 	"use strict";
 
-	return Controller.extend("POReportForSCM.controller.V_Create_PO", {
+	return BaseController.extend("POReportForSCM.controller.V_Create_PO", {
 		_oDialog: null,
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.

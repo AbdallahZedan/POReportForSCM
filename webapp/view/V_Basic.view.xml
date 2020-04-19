@@ -9,6 +9,11 @@
 					<ToolbarSpacer/>
 				</Toolbar>
 			</subHeader>
+			<!--<Footer>-->
+			<!--<Toolbar>-->
+			<!--		<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPressed" />-->
+			<!--</Toolbar>-->
+			<!--</Footer>-->
 			<content>
 				<HBox>
 					<Button text="{i18n>overviewButton}" press="onOverviewPress">
@@ -32,6 +37,16 @@
 						</layoutData>
 					</Button>
 					<Button type="Reject" text="{i18n>GaugesButton}" press="onGaugesPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPress">
+						<layoutData>
+							<FlexItemData growFactor="1"/>
+						</layoutData>
+					</Button>
+					<Button id="upload_button" text="{i18n>UploadFile}" press="onUploadPress">
 						<layoutData>
 							<FlexItemData growFactor="1"/>
 						</layoutData>

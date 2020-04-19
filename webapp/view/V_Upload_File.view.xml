@@ -1,0 +1,17 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="POReportForSCM.controller.V_Upload_File"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" class="viewPadding">
+	<App>
+		<pages>
+			<Page title="{i18n>UploadF}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<Label text="{i18n>filePH}" width="100%" id="__label0"/>
+					<u:FileUploader id="fileUploader" useMultipart="false" name="myFileUpload"
+						uploadUrl="https://cicwd.cic.ae:44301//sap/opu/odata/sap/ZGW_PO3_SRV/ZFILE1Set" width="400px" tooltip="Upload your file to the local server"
+						uploadComplete="handleUploadComplete"/>
+					<Button text="{i18n>UploadF}" press="handleUploadPress"/>
+					<Button text="{i18n>showImage}" id="shoWImage_button" enabled="false" press="onShowImagePress"/>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

@@ -1,9 +1,9 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
+	"POReportForSCM/controller/BaseController"
+], function(BaseController) {
 	"use strict";
 
-	return Controller.extend("POReportForSCM.controller.V_Basic", {
+	return BaseController.extend("POReportForSCM.controller.V_Basic", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
@@ -38,6 +38,16 @@ sap.ui.define([
 		onGaugesPress: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Route_Gauges", {});
+		},
+
+		onContactUsPress: function(oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Route_Contact_us", {});
+		},
+
+		onUploadPress: function(oEvent) {
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Route_UploadFile", {});
 		}
 
 		/**

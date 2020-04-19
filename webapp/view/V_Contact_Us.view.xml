@@ -1,0 +1,18 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="POReportForSCM.controller.V_Contact_Us"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page title="{i18n>contactUs}" showNavButton="true" navButtonPress="onNavBack">
+				<content>
+					<List headerText="{i18n>contactUs}">
+						<items>
+							<DisplayListItem label="{i18n>Telephone}" value="+201234567891" type="Active" press="handleTelPress"/>
+							<DisplayListItem label="{i18n>SMS}" value="+201234567891" type="Active" press="handleSmsPress"/>
+							<DisplayListItem label="{i18n>Email}" value="test@cic.ae" type="Active" press="handleEmailPress"/>
+						</items>
+					</List>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

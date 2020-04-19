@@ -1,25 +1,25 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(Controller, Filter, FilterOperator) {
+], function(BaseController, Filter, FilterOperator) {
 	"use strict";
 
-	return Controller.extend("POReportForSCM.controller.V_POHeader", {
+	return BaseController.extend("POReportForSCM.controller.V_POHeader", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 		 * @memberOf POReportForSCM.view.V_POHeader
 		 */
-			onInit: function() {
-		
-			},
+		onInit: function() {
+
+		},
 
 		onFindPress: function(oEvent) {
 			// debugger;
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Route_FindItem",{});
+			oRouter.navTo("Route_FindItem", {});
 		},
 
 		GoToDetails: function(oEvent) {
@@ -31,8 +31,8 @@ sap.ui.define([
 				SelectedItem: selectPO
 			});
 		},
-		
-		onFilterPO : function (oEvent) {
+
+		onFilterPO: function(oEvent) {
 
 			// build filter array
 			var aFilter = [];

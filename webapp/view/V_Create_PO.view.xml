@@ -1,7 +1,8 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="POReportForSCM.controller.V_Create_PO">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="POReportForSCM.controller.V_Create_PO">
 	<App>
 		<pages>
-			<Page title="{i18n>createPoTitle}">
+			<Page title="{i18n>createPoTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<Panel expandable="true" headerText="{i18n>headerPOTitle}" width="auto" class="sapUiResponsiveMargin" expanded="true">
 					<content>
 						<sap.ui.layout.form:Form xmlns:sap.ui.layout.form="sap.ui.layout.form" editable="true" id="__form1">
@@ -48,7 +49,6 @@
 												<Input width="50%" id="txz01_input"/>
 											</sap.ui.layout.form:fields>
 										</sap.ui.layout.form:FormElement>
-									
 									</sap.ui.layout.form:formElements>
 								</sap.ui.layout.form:FormContainer>
 							</sap.ui.layout.form:formContainers>
@@ -82,18 +82,16 @@
 								</ColumnListItem>
 							</items>
 							<columns>
-									<Column id="Edit">
+								<Column id="Edit">
 									<header>
 										<Label text="{i18n>edit}" id="Edit_id"/>
 									</header>
 								</Column>
-								
-									<Column id="Item">
+								<Column id="Item">
 									<header>
 										<Label text="{i18n>ItemNumber}" id="Item_id"/>
 									</header>
 								</Column>
-								
 								<Column id="material">
 									<header>
 										<Label text="{i18n>matnr}" id="material_id"/>

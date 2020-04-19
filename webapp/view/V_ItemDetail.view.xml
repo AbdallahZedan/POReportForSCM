@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="{i18n>ItemPageTitle}">
+			<Page title="{i18n>ItemPageTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<Table id="it_item">
 						<columns>

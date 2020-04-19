@@ -4,7 +4,11 @@
 		<pages>
 			<Page title="{i18n>title}">
 				<content>
-					
+					<!--<Toolbar>-->
+					<!--	<Footer>-->
+					<!--		<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPressed"/>-->
+					<!--	</Footer>-->
+					<!--</Toolbar>-->
 				</content>
 			</Page>
 		</pages>

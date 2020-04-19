@@ -1,11 +1,11 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
+	"POReportForSCM/controller/BaseController",
 	"sap/m/MessageToast",
 	"sap/ui/core/Fragment"
-], function(Controller, MessageToast, Fragment) {
+], function(BaseController, MessageToast, Fragment) {
 	"use strict";
 
-	return Controller.extend("POReportForSCM.controller.V_Find_Item", {
+	return BaseController.extend("POReportForSCM.controller.V_Find_Item", {
 
 		onInit: function() {
 			debugger;
@@ -66,18 +66,18 @@ sap.ui.define([
 		},
 
 		onCloseDialog: function(oEvent) {
+			debugger;
+			var ebeln = oEvent.getSource().getBindingContext().getProperty("Ebeln");
+			var ebelp = oEvent.getSource().getBindingContext().getProperty("Ebelp");
+			this.oView.byId("ebeln_input").setValue(ebeln);
+			this.oView.byId("ebelp_input").setValue(ebelp);
+			this._oValueHelpDialog.destroy();
+		},
+
+		onCancelPressed: function(oEvent) {
 				debugger;
-				var ebeln = oEvent.getSource().getBindingContext().getProperty("Ebeln");
-				var ebelp = oEvent.getSource().getBindingContext().getProperty("Ebelp");
-				this.oView.byId("ebeln_input").setValue(ebeln);
-				this.oView.byId("ebelp_input").setValue(ebelp);
 				this._oValueHelpDialog.destroy();
-			},
-			
-			onCancelPressed: function(oEvent) {
-				debugger;
-				this._oValueHelpDialog.destroy();
-				
+
 			}
 			// _configValueHelpDialog: function(sInputValue) {
 			// 	var myModel = this.getOwnerComponent().getModel();

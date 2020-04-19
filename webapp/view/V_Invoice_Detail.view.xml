@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<App>
 		<pages>
-			<Page title="{i18n>InvoiceDetailPageTitle}">
+			<Page title="{i18n>InvoiceDetailPageTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<List noDataText="{i18n>noData}" id="list">
 						<items>

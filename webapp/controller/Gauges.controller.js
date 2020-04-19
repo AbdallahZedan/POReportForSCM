@@ -1,9 +1,9 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function(Controller) {
+		"POReportForSCM/controller/BaseController"
+], function(BaseController) {
 	"use strict";
 
-	return Controller.extend("POReportForSCM.controller.Gauges", {
+	return BaseController.extend("POReportForSCM.controller.Gauges", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.

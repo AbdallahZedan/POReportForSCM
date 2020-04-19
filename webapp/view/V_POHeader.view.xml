@@ -2,7 +2,7 @@
 	controllerName="POReportForSCM.controller.V_POHeader">
 	<App>
 		<pages>
-			<Page title="{i18n>HeaderPageTitle}">
+			<Page title="{i18n>HeaderPageTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<ScrollContainer height="100%" width="100%" vertical="true">
 					<content>
 						<List noDataText="{i18n>noData}" id="POList" items="{ path : '/POHeaderSet', sorter: { path: 'Bsart', group: true } }">

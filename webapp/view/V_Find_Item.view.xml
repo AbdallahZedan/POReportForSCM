@@ -2,7 +2,7 @@
 	controllerName="POReportForSCM.controller.V_Find_Item">
 	<App>
 		<pages>
-			<Page title="{i18n>findPageTitle}">
+			<Page title="{i18n>findPageTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<VBox width="100%" direction="Column" id="__vbox0" class="sapUiTinyMarginBeginEnd sapUiResponsiveMargin">
 						<items>
