@@ -1,58 +1,148 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	controllerName="POReportForSCM.controller.V_Basic">
-	<App>
-		<Page title="{i18n>BasicPageTitle}" enableScrolling="false" showNavButton="false">
-			<subHeader>
-				<Toolbar>
-					<ToolbarSpacer/>
-					<Text text="{i18n>pageHeader}"/>
-					<ToolbarSpacer/>
-				</Toolbar>
-			</subHeader>
-			<!--<Footer>-->
-			<!--<Toolbar>-->
-			<!--		<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPressed" />-->
-			<!--</Toolbar>-->
-			<!--</Footer>-->
-			<content>
-				<HBox>
-					<Button text="{i18n>overviewButton}" press="onOverviewPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button type="Accept" text="{i18n>CreatePOButton}" press="onCreatePoPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button type="Reject" text="{i18n>findItemButton}" press="onFindItemPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button type="Reject" text="{i18n>FindInvoiceButton}" press="onFindInvoicePress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button type="Reject" text="{i18n>GaugesButton}" press="onGaugesPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-					<Button id="upload_button" text="{i18n>UploadFile}" press="onUploadPress">
-						<layoutData>
-							<FlexItemData growFactor="1"/>
-						</layoutData>
-					</Button>
-				</HBox>
-			</content>
-		</Page>
-	</App>
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:layout="sap.ui.layout" xmlns:m="sap.m"
+	controllerName="POReportForSCM.controller.V_Basic" height="100%">
+	<m:Page>
+		<m:content>
+			<ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true" useIconTabBar="true" showTitleInHeaderContent="true"
+				selectedSection="personal">
+				<headerTitle>
+					<ObjectPageDynamicHeaderTitle>
+						<expandedHeading>
+							<m:Title text="Denise Smith" wrapping="true"/>
+						</expandedHeading>
+						<expandedContent>
+							<m:Text text="Senior UI Developer"/>
+						</expandedContent>
+					</ObjectPageDynamicHeaderTitle>
+				</headerTitle>
+				<headerContent>
+					<m:FlexBox>
+						<layout:VerticalLayout>
+							<m:Link text="+33 6 4512 5158"/>
+							<m:Link text="DeniseSmith@sap.com"/>
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+							<m:Label text="Hello! I am Denise and I use UxAP"/>
+							<m:VBox>
+								<m:Label text="test"/>
+							</m:VBox>
+						</layout:VerticalLayout>
+						<layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+							<m:Label text="San Jose, USA"/>
+						</layout:VerticalLayout>
+					</m:FlexBox>
+				</headerContent>
+				<sections>
+					<ObjectPageSection id="info_section" title="Purchase order Info.">
+						<subSections>
+							<ObjectPageSubSection>
+								<m:VBox class="sapUiResponsiveMargin">
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="overview_label" class="sapUiSmallMarginTop" text="Show or search Purchase Order"/>
+										<m:Button id="overview_button" class="sapUiSmallMarginBegin" text="{i18n>overviewButton}" press="onOverviewPress"/>
+									</m:FlexBox>
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="create_po_label" class="sapUiSmallMarginTop" text="create Purchase directly"/>
+										<m:Button id="createPo_button" class="sapUiMediumMarginBegin" text="{i18n>CreatePOButton}" press="onCreatePoPress"/>
+									</m:FlexBox>
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="find_item_label" class="sapUiSmallMarginTop" text="find any item belong to purchase order"/>
+										<m:Button id="find_item_button" class="sapUiMediumMarginBegin" type="Reject" text="{i18n>findItemButton}" press="onFindItemPress"/>
+									</m:FlexBox>
+								</m:VBox>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection id="invoice_section" title="Invoice">
+						<subSections>
+							<ObjectPageSubSection>
+								<m:VBox class="sapUiResponsiveMargin">
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="invoice_label" class="sapUiSmallMarginTop" text="you can find any invocies that are created from here ..."/>
+										<m:Button type="Reject" class="sapUiSmallMarginBegin" text="{i18n>FindInvoiceButton}" press="onFindInvoicePress"/>
+									</m:FlexBox>
+								</m:VBox>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+					<ObjectPageSection id="test_section" title="Just for test">
+						<subSections>
+							<ObjectPageSubSection>
+								<m:VBox class="sapUiResponsiveMargin">
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="upload_label" class="sapUiSmallMarginTop" text="Upload and show image ..."/>
+										<m:Button id="upload_button" class="sapUiSmallMarginBegin" text="{i18n>UploadFile}" press="onUploadPress"/>
+									</m:FlexBox>
+									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
+										<m:Label id="Gaugs_label" class="sapUiSmallMarginTop" text="Test Third party library of Progress Indicator"/>
+										<m:Button id="gaugs_button" class="sapUiSmallMarginBegin" text="{i18n>UploadFile}" press="onUploadPress"/>
+									</m:FlexBox>
+								</m:VBox>
+							</ObjectPageSubSection>
+						</subSections>
+					</ObjectPageSection>
+				</sections>
+			</ObjectPageLayout>
+		</m:content>
+		<m:footer>
+			<m:OverflowToolbar>
+				<!--<m:ToolbarSpacer/>-->
+				<!--<m:Button text="Reject" type="Reject"/>-->
+			</m:OverflowToolbar>
+		</m:footer>
+	</m:Page>
 </mvc:View>
+<!--<App>-->
+<!--	<Page title="{i18n>BasicPageTitle}" enableScrolling="false" showNavButton="false">-->
+<!--		<subHeader>-->
+<!--			<Toolbar>-->
+<!--				<ToolbarSpacer/>-->
+<!--				<Text text="{i18n>pageHeader}"/>-->
+<!--				<ToolbarSpacer/>-->
+<!--			</Toolbar>-->
+<!--		</subHeader>-->
+<!--<Footer>-->
+<!--<Toolbar>-->
+<!--		<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPressed" />-->
+<!--</Toolbar>-->
+<!--</Footer>-->
+<!--		<content>-->
+<!--			<HBox>-->
+<!--				<Button text="{i18n>overviewButton}" press="onOverviewPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button type="Accept" text="{i18n>CreatePOButton}" press="onCreatePoPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button type="Reject" text="{i18n>findItemButton}" press="onFindItemPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button type="Reject" text="{i18n>FindInvoiceButton}" press="onFindInvoicePress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button type="Reject" text="{i18n>GaugesButton}" press="onGaugesPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button id="contactUs_button" text="{i18n>contactUs}" press="onContactUsPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--				<Button id="upload_button" text="{i18n>UploadFile}" press="onUploadPress">-->
+<!--					<layoutData>-->
+<!--						<FlexItemData growFactor="1"/>-->
+<!--					</layoutData>-->
+<!--				</Button>-->
+<!--			</HBox>-->
+<!--		</content>-->
+<!--	</Page>-->
+<!--</App>-->

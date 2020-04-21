@@ -1,8 +1,9 @@
 sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function(BaseController, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType"
+], function(BaseController, Filter, FilterOperator, FilterType) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.V_POHeader", {
@@ -36,15 +37,21 @@ sap.ui.define([
 
 			// build filter array
 			var aFilter = [];
-			var sQuery = oEvent.getParameter("query");
-			if (sQuery) {
-				aFilter.push(new Filter("Ebeln", FilterOperator.eq, sQuery));
-			}
+			var sQuery = oEvent.getSource().getValue();
+			var aFilter = new Filter(
+				"Bsart",
+				FilterOperator.Contains,
+				sQuery
+			);
+
+			// if (sQuery) {
+			// 	aFilter.push(new Filter("Bsart", FilterOperator.Contains, sQuery));
+			// }
 			debugger;
 			// filter binding
-			var oList = this.getView().byId("POList");
-			var oBinding = oList.getBinding("items");
-			oBinding.filter(aFilter);
+			var oBinding = this.getView().byId("POList").getBinding("items");
+			// var oBinding = oList;
+			oBinding.filter(aFilter, FilterType.Application);
 		}
 
 	});
