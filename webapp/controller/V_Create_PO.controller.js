@@ -224,7 +224,7 @@ sap.ui.define([
 			POModel.create("/POHeaderSet", oEntry1, {
 
 				success: function(oData, oResponse) {
-					alert("The backend SAP System is Connected Successfully");
+					alert("backend SAP System is Connected Successfully");
 
 					// var successObj = oResponse.data.HandlingUnit;
 					var message; /*= "Batch : " + successObj + "  " + "updated successfully";*/

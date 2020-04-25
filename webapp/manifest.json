@@ -124,7 +124,7 @@
 				"target": ["Target_POHeader"]
 			}, {
 				"name": "Route_PODetail",
-				"pattern": "POHeaderSet{SelectedItem}",
+				"pattern": "POHeaderSet{selectedPO}",
 				"titleTarget": "",
 				"greedy": false,
 				"target": ["Target_PODetail"]
