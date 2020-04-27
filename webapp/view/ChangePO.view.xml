@@ -1,0 +1,85 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:f="sap.ui.layout.form" xmlns:uxap="sap.uxap" xmlns:layout="sap.ui.layout" controllerName="POReportForSCM.controller.ChangePO">
+	<Page title="{i18n>poDetailPage}" showNavButton="true" navButtonPress="onNavBack">
+		<!--<ScrollContainer>-->
+		<content>
+			<uxap:ObjectPageLayout xmlns:layout="sap.ui.layout" xmlns:blockcolor="sap.uxap.sample.SharedBlocks" id="ObjectPage1Layout"
+				enableLazyLoading="false" showAnchorBarPopover="false" height="100%" alwaysShowContentHeader="true">
+				<uxap:sections>
+					<uxap:ObjectPageSection title="{i18n>changePO}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection>
+								<f:SimpleForm id="headerFormId" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2">
+									<f:content>
+										<core:Title text="Essential Info."/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>bukrs}"/>
+										<Input value="{dataModel>/Bukrs}"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
+										<Input value="{dataModel>/Bsart}"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>Loekz}"/>
+										<Input value="{dataModel>/Loekz}"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>lifnr}"/>
+										<Input value="{dataModel>/Lifnr}"/>
+										<core:Title text="Additional Info."/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>ERNAM}"/>
+										<Input value="{dataModel>/Ernam}"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>Aedat}"/>
+										<Input
+											value="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+									</f:content>
+								</f:SimpleForm>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+					<uxap:ObjectPageSection title="{i18n>itemInfo}">
+						<uxap:subSections>
+							<uxap:ObjectPageSubSection>
+								<Panel width="auto" class="sapUiResponsiveMargin">
+									<content>
+										<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
+											<columns>
+												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
+												<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
+												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>
+												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
+												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
+												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
+											</columns>
+											<items>
+												<ColumnListItem detailPress="onEdit" type="Detail">
+													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
+													<Input id="vendorTextId" value="{dataModel>Statu}"/>
+													<Input id="deletionTextId" value="{dataModel>Loekz}"/>
+													<Input id="DescriptionTextId" value="{dataModel>Txz01}"/>
+													<Input id="quantityTextId" value="{dataModel>Ktmng}"/>
+													<Input id="materialNoTextId" value="{dataModel>Matnr}"/>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</content>
+									<headerToolbar>
+										<Toolbar height="3rem">
+											<Button icon="sap-icon://add" text="{i18n>AddButton}" type="Emphasized" press="onPickPressed"/>
+											<ToolbarSpacer/>
+											<Button icon="sap-icon://sys-minus" text="{i18n>deleteButton}" type="Reject" press="onDelete"/>
+										</Toolbar>
+									</headerToolbar>
+								</Panel>
+							</uxap:ObjectPageSubSection>
+						</uxap:subSections>
+					</uxap:ObjectPageSection>
+				</uxap:sections>
+			</uxap:ObjectPageLayout>
+		</content>
+		<!--</ScrollContainer>-->
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
+				<Button text="Save" type="Accept" press="onSavePressed"/>
+				<Button text="Release" type="Reject" press="onReleasePressed"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>

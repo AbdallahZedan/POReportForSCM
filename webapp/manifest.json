@@ -15,7 +15,7 @@
 		},
 		"dataSources": {
 			"ZGW_PO3_SRV": {
-				"uri": "https://cicwd.cic.ae:44301/sap/opu/odata/sap/ZGW_PO3_SRV/",
+				"uri": "http://app-1809.cic.ae:8000/sap/opu/odata/sap/ZGW_PO3_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0",
@@ -129,6 +129,18 @@
 				"greedy": false,
 				"target": ["Target_PODetail"]
 			}, {
+				"name": "Route_DisplayPO",
+				"pattern": "POInfo{selectedPO}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_DisplayPO"]
+			}, {
+				"name": "Route_ChangePO1",
+				"pattern": "PO/change/{selectedPO}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_ChangePO"]
+			}, {
 				"name": "Route_Item",
 				"pattern": "POHeaderSet{SelectedPO}/HeadToItemNav",
 				"titleTarget": "",
@@ -219,11 +231,25 @@
 					"viewName": "V_POHeader",
 					"viewLevel": 2
 				},
+				"Target_DisplayPO": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "DisplayPO",
+					"viewLevel": 3
+				},
+				"Target_ChangePO": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "ChangePO",
+					"viewLevel": 3
+				},
 				"Target_PODetail": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearAggregation": true,
-					"viewName": "V_PODetail",
+					"viewName": "DisplayPO",
 					"viewLevel": 3
 				},
 				"Target_POItem": {

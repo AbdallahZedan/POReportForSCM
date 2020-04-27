@@ -1,0 +1,79 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:f="sap.ui.layout.form" xmlns:uxap="sap.uxap" xmlns:layout="sap.ui.layout" controllerName="POReportForSCM.controller.DisplayPO">
+	<Page title="{i18n>poDetailPage}" showNavButton="true" navButtonPress="onNavBack">
+		<!--<ScrollContainer>-->
+			<content>
+				<uxap:ObjectPageLayout xmlns:layout="sap.ui.layout" xmlns:blockcolor="sap.uxap.sample.SharedBlocks" id="ObjectPage1Layout"
+					enableLazyLoading="false" showAnchorBarPopover="false" height="100%" alwaysShowContentHeader="true">
+					<uxap:sections>
+						<uxap:ObjectPageSection title="{i18n>headerPOTitle}">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<f:SimpleForm id="headerFormId" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+										labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2">
+										<f:content>
+											<core:Title text="Essential Info."/>
+											<Label text="{i18n>ebeln}"/>
+											<Text text="{dataModel>/Ebeln}"/>
+											<Label text="{i18n>bukrs}"/>
+											<Text text="{dataModel>/Bukrs}"/>
+											<Label text="{i18n>Bsart}"/>
+											<Text text="{dataModel>/Bsart}"/>
+											<Label text="{i18n>releaseStatus}"/>
+											<Text text="{dataModel>/Status}"/>
+											<Label text="{i18n>Loekz}"/>
+											<Text text="{dataModel>/Loekz}"/>
+											<Label text="{i18n>lifnr}"/>
+											<Text text="{dataModel>/Lifnr}"/>
+											<core:Title text="Additional Info."/>
+											<Label text="{i18n>ERNAM}}"/>
+											<Text text="{dataModel>/Ernam}"/>
+											<Label text="{i18n>Aedat}"/>
+											<Text
+												text="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+										</f:content>
+									</f:SimpleForm>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+						<uxap:ObjectPageSection title="{i18n>itemInfo}">
+							<uxap:subSections>
+								<uxap:ObjectPageSubSection>
+									<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
+										<columns>
+											<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
+											<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
+											<Column width="14%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>
+											<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
+											<Column width="7%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
+											<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
+										</columns>
+										<items>
+											<ColumnListItem>
+												<Text id="itemNumberTextId" text="{dataModel>Ebelp}"/>
+												<Text id="statusTextId" text="{dataModel>Statu}"/>
+												<Text id="deletionTextId" text="{dataModel>Loekz}"/>
+												<Text id="DescriptionTextId" text="{dataModel>Txz01}"/>
+												<Text id="quantityTextId" text="{dataModel>Ktmng}"/>
+												<Text id="materialNoTextId" text="{dataModel>Matnr}"/>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</uxap:ObjectPageSubSection>
+							</uxap:subSections>
+						</uxap:ObjectPageSection>
+					</uxap:sections>
+				</uxap:ObjectPageLayout>
+			</content>
+		<!--</ScrollContainer>-->
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
+				<Button text="Change" type="Accept" press="ChangePO" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
+				<Button text="Release" type="Reject" press="onReleasePressed" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
+				<Button text="Create Another po" press="CreatePO" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
+			</OverflowToolbar>
+		</footer>
+	</Page>
+</mvc:View>
