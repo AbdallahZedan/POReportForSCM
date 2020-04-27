@@ -211,7 +211,6 @@ sap.ui.define([
 
 			//create an object to hold all data
 			var oEntry1 = {};
-
 			oEntry1.Bukrs = companyCode;
 			oEntry1.Lifnr = vendor;
 			//item table

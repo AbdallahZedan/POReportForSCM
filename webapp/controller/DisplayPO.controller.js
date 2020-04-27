@@ -76,7 +76,7 @@ sap.ui.define([
 			//message box if selected po was released
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln");
-			oRouter.navTo("Route_ChangePO1", {
+			oRouter.navTo("Route_DisplayPO", {
 				selectedPO: docNo
 			});
 		},

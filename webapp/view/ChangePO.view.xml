@@ -37,7 +37,7 @@
 							<uxap:ObjectPageSubSection>
 								<Panel width="auto" class="sapUiResponsiveMargin">
 									<content>
-										<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
+										<Table id="itemTableId" items="{dataModel>/POItemSet/results}"  mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
 											<columns>
 												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
 												<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
@@ -49,11 +49,11 @@
 											<items>
 												<ColumnListItem detailPress="onEdit" type="Detail">
 													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
-													<Input id="vendorTextId" value="{dataModel>Statu}"/>
-													<Input id="deletionTextId" value="{dataModel>Loekz}"/>
-													<Input id="DescriptionTextId" value="{dataModel>Txz01}"/>
-													<Input id="quantityTextId" value="{dataModel>Ktmng}"/>
-													<Input id="materialNoTextId" value="{dataModel>Matnr}"/>
+													<Input id="vendorTextId" value="{dataModel>Statu}" enabled="{= ${dataModel>oIndex} === '0' }"/>
+													<Input id="deletionTextId" value="{dataModel>Loekz}" enabled="false"/>
+													<Input id="DescriptionTextId" value="{dataModel>Txz01}" enabled="false"/>
+													<Input id="quantityTextId" value="{dataModel>Ktmng}" enabled="false"/>
+													<Input id="materialNoTextId" value="{dataModel>Matnr}" enabled="false"/>
 												</ColumnListItem>
 											</items>
 										</Table>
