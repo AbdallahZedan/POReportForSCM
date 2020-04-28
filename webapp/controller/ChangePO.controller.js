@@ -50,6 +50,23 @@ sap.ui.define([
 			});
 			debugger;
 
+			oModel.callFunction("/GetReleaseStatus", {
+				filters: oFilters,
+				urlParameters: {
+					Ebeln: oArgument.selectedPO
+				},
+				method: "GET",
+				success: function(data) {
+					releaseModel.setData(data);
+				},
+				error: function() {
+					MessageBox.error("Can't get Status of purchase order");
+					debugger;
+				}
+
+			});
+			debugger;
+
 		},
 		onSavePressed: function(oEvent) {
 			debugger;
@@ -58,23 +75,21 @@ sap.ui.define([
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				oEntry = {};
-				
+
 			oEntry.Ebeln = dataModel.getProperty("/Ebeln");
 			oEntry.Bukrs = dataModel.getProperty("/Bukrs");
 			oEntry.Bsart = dataModel.getProperty("/Bsart");
-			oEntry.Loekz = dataModel.getProperty("/Loekz");
+			// oEntry.Loekz = dataModel.getProperty("/Loekz");
 			oEntry.Ernam = dataModel.getProperty("/Ernam");
 			oEntry.Lifnr = dataModel.getProperty("/Lifnr");
-
+			// oEntry.Aedat = dataModel.getProperty("/Aedat");
 			oEntry.POItemSet = dataModel.getProperty("/POItemSet/results");
 
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
 					MessageBox.success("Purchase order Updated successfully");
-					oRouter.navTo("Route_DisplayPO", {
-						selectedPO: docNo
-					});
+					oRouter.navTo("Route_POHeader", {});
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -85,26 +100,33 @@ sap.ui.define([
 
 		onReleasePressed: function(oEvent) {
 			var oModel = this.getOwnerComponent().getModel(),
-				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
-				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln");
+				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
+				releaseMode = this.getView().getModel("releaseModel");
+			// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
+			// xCSRFToken = oModel.getSecurityToken();
 			//call functionImport of release purchase order
+			// var urlParam = {
+			// 	Ebeln: docNo
+			// };
+			// oModel.bTokenHandling = false;
+			// oModel.setHeaders({
+			// 	"X-CSRF-Token": xCSRFToken
+			// });
+			var urlParam = {
+				Ebeln: docNo
+			};
 
 			oModel.callFunction("/releasePO", {
-				filters: oFilters,
-				urlParameters: {
-					Ebeln: docNo
-				},
 				method: "POST",
-				success: function(data) {
-					releaseModel.setData(data);
-					// messagebox for released correctly.	
-					MessageBox.success("Purchase Order No. " + docNo + " released successfully");
-				},
-				error: function() {
+				urlParameters: urlParam,
+				success: function(oData, responce) {
+					releaseMode.setData(oData);
 					debugger;
-					MessageBox.error("unable to release Purchase order No. " + docNo);
+				},
+				error: function(oError) {
+					debugger;
 				}
-
 			});
 
 		},
@@ -149,11 +171,11 @@ sap.ui.define([
 				Ebeln: docNo,
 				Ebelp: "",
 				Ktmng: "",
-				Loekz: false,
+				// Loekz: false,
 				Matnr: "",
 				Statu: "",
-				Txz01: "",
-				oIndex: "0"
+				Txz01: ""
+					// oIndex: "0"
 			});
 
 			dataModel.setProperty("/POItemSet/results", oRows);
@@ -162,32 +184,32 @@ sap.ui.define([
 			oTable.setSelectedItem(oTable.getItems()[0]);
 			//  var a = oTable.getSelectedItem();
 			var oItem = oTable.getSelectedItem();
-			var oIndex = oTable.indexOfItem(oItem);
+			// var oIndex = oTable.indexOfItem(oItem);
 
-			results[0].oIndex = oIndex;
+			// results[0].oIndex = oIndex;
 			this.onPress(oItem, true);
-			dataModel.setProperty("/POItemSet/results", results);
+			// dataModel.setProperty("/POItemSet/results", results);
 		},
 
 		onEdit: function(oEvent) {
 
 			var oItem = oEvent.getSource(),
 				oTable = this.getView().byId("itemTableId"),
-				oIndex = oTable.indexOfItem(oItem),
+				// oIndex = oTable.indexOfItem(oItem),
 				// flageModel = this.getView().getModel("dataModel"),
 				dataModel = this.getView().getModel("dataModel"),
-				results = dataModel.getProperty("/POItemSet/results"),
-				oFlag = results[oIndex].oIndex;
-			if (oFlag === undefined) {
-				// oModel.setProperty("/oIndex", oIndex);
-				results[0].oIndex = oIndex
-				this.onPress(oItem, true);
-				dataModel.setProperty("/POItemSet/results", results);
-			} else {
-				debugger;
-				//reset 
-				MessageBox.error("Can't edit two items on same time");
-			}
+				results = dataModel.getProperty("/POItemSet/results");
+			// oFlag = results[oIndex].oIndex;
+			// if (oFlag === undefined) {
+			// oModel.setProperty("/oIndex", oIndex);
+			// results[0].oIndex = oIndex
+			this.onPress(oItem, true);
+			// dataModel.setProperty("/POItemSet/results", results);
+			// } else {
+			// 	debugger;
+			// 	//reset 
+			// 	MessageBox.error("Can't edit two items on same time");
+			// }
 		},
 
 		onPress: function(oItem, oFlag) {
@@ -200,6 +222,13 @@ sap.ui.define([
 				}
 			});
 		},
+
+		CreatePO: function(oEvent) {
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Route_CreatePO1", {});
+
+		}
 
 		// onSaveEdit: function(oEvent) {
 		// 	//POST

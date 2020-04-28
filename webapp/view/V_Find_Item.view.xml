@@ -9,7 +9,7 @@
 							<Label text="{i18n>PONumber}" width="100%" id="PO_label" class="sapUiTinyMarginTopBottom" design="Bold"/>
 							<!--<ComboBox id="PO_comboBox" width="70%" showSecondaryValues="true" placeholder="{i18n>PONumberPH}"-->
 							<!--items="{ path: '/POHeaderSet', length: 600, sorter: { path: 'Ebeln' }}">-->
-							<!--<core:ListItem key="{Ebeln}" text="{Ebeln}" additionalText="{Bukrs}"/>-->
+							<!--<core:ListItem key="{Ebeln}" text="{Ebeln}" additiona6lText="{Bukrs}"/>-->
 							<Input id="ebeln_input" value="{dataModel>/Ebeln}" width="70%" showValueHelp="true" valueHelpRequest=".handleValueHelp" placeholder="{i18n>PONumberPH}"/>
 							<!--</ComboBox>-->
 							<Label text="{i18n>ItemNumber}" width="100%" id="item_label" class="sapUiTinyMarginTopBottom" design="Bold"/>

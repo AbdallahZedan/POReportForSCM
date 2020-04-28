@@ -17,6 +17,8 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel(),
 				dataModel = new JSONModel();
 
+			// dataModel.setProperty("/Ebeln", "");
+			// dataModel.setProperty("/Ebelp", "");
 			oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
 			// var sPath = jQuery.sap.getModulePath("POReportForSCM","/model/POColumnModel.json");
 			// this.jsonModel = new sap.ui.model.json.JSONModel(sPath);
@@ -62,8 +64,11 @@ sap.ui.define([
 			var oModel = this.getOwnerComponent().getModel(),
 				oView = this.getView(),
 				dataModel = oView.getModel("dataModel"),
-				ebeln = dataModel.getProperty("/Ebeln"),
-				ebelp = dataModel.getProperty("/Ebelp"),
+				// ebeln = dataModel.getProperty("/Ebeln"),
+				// ebelp = dataModel.getProperty("/Ebelp"),
+				ebeln  = this.getView().byId("ebeln_input").getValue(),
+				ebelp  = this.getView().byId("ebelp_input").getValue(),
+				// oFlage = false,
 				oFilters = [];
 
 			oFilters.push(new Filter("Type", FilterOperator.EQ, "poAndItem"));
@@ -83,7 +88,10 @@ sap.ui.define([
 				filters: oFilters,
 				method: "GET",
 				success: function(data) {
-					dataModel.setData(data);
+
+					dataModel.setProperty("/results", data.results);
+					debugger;
+					// oFlag = true;
 				},
 				error: function(error) {
 					MessageBox.error("Failed on load the search help, please try again");
@@ -91,6 +99,8 @@ sap.ui.define([
 
 			});
 
+			// setTimeout(function() {
+			// if (oFlage) {
 			if (!this._oValueHelpDialog) {
 				this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.SearchHelp", this);
 				this.getView().addDependent(this._oValueHelpDialog);
@@ -102,14 +112,26 @@ sap.ui.define([
 				// this._configValueHelpDialog(sInputValue);
 				this._oValueHelpDialog.open();
 			}
+			// }
+			// }, 1000);
+
 		},
 
 		onCloseDialog: function(oEvent) {
 			debugger;
+			var oTabele = this.getView().byId("searchHelpTableId");
+			var oItem = oEvent.getSource();
+			var ebeln = oItem.mAggregations.cells[0].mProperties.text;
+			var ebelp = oItem.mAggregations.cells[1].mProperties.text;
+			// 			var oTable = this.getView().getDependent();
 			// var ebeln = oEvent.getSource().getBindingContext().getProperty("Ebeln");
 			// var ebelp = oEvent.getSource().getBindingContext().getProperty("Ebelp");
 			// this.oView.byId("ebeln_input").setValue(ebeln);
 			// this.oView.byId("ebelp_input").setValue(ebelp);
+			var dataModel = this.getView().getModel("dataModel");
+			dataModel.setProperty("/Ebeln", ebeln);
+			dataModel.setProperty("/Ebelp", ebelp);
+			this.getView().setModel(dataModel);
 			this._oValueHelpDialog.destroy();
 		},
 

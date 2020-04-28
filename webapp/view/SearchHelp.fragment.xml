@@ -30,7 +30,7 @@
 <!--</core:FragmentDefinition>-->
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog id="searchHelp_id" title="{i18n>SearchHelpDialogTitle}">
-		<Table class="sapUiResponsiveMargin" width="auto" items="{/ZJ1bnfeEbelpForEbelnSet}">
+		<Table id="searchHelpTableId" class="sapUiResponsiveMargin" width="auto" items="{dataModel>/results}">
 			<columns>
 					<Column>
 						<Text text="{i18n>PONumber}"/>
@@ -43,8 +43,8 @@
 				<items>
 					<ColumnListItem  type="Navigation" press="onCloseDialog">
 						<cells>
-							<Text text="{dataModel>/Ebeln}"/>
-							<Text text="{dataModel>/Ebelp}"/>
+							<Text text="{dataModel>Value1}"/>
+							<Text text="{dataModel>Value2}"/>
 						</cells>
 					</ColumnListItem>
 					<!--<ObjectListItem type="Navigation" press="onCloseDialog" title="{Ebeln}" number="{Ebelp}"/>-->

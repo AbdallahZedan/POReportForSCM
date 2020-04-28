@@ -37,11 +37,12 @@
 							<uxap:ObjectPageSubSection>
 								<Panel width="auto" class="sapUiResponsiveMargin">
 									<content>
-										<Table id="itemTableId" items="{dataModel>/POItemSet/results}"  mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
+										<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="MultiSelect" growing="true" growingThreshold="10"
+											growingScrollToLoad="false">
 											<columns>
 												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
-												<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
-												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>
+												<Column width="10%"><Text text="{i18n>statu}"/></Column>
+												<!--<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>-->
 												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
 												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
 												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
@@ -50,7 +51,7 @@
 												<ColumnListItem detailPress="onEdit" type="Detail">
 													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
 													<Input id="vendorTextId" value="{dataModel>Statu}" enabled="{= ${dataModel>oIndex} === '0' }"/>
-													<Input id="deletionTextId" value="{dataModel>Loekz}" enabled="false"/>
+													<!--<Input id="deletionTextId" value="{dataModel>Loekz}" enabled="false"/>-->
 													<Input id="DescriptionTextId" value="{dataModel>Txz01}" enabled="false"/>
 													<Input id="quantityTextId" value="{dataModel>Ktmng}" enabled="false"/>
 													<Input id="materialNoTextId" value="{dataModel>Matnr}" enabled="false"/>
@@ -77,8 +78,9 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
-				<Button text="Save" type="Emphasized" press="onSavePressed"/>
-				<Button text="Release" type="Accept" press="onReleasePressed"/>
+				<Button text="Save" type="Emphasized" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onSavePressed"/>
+				<Button text="Release" type="Accept" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onReleasePressed"/>
+				<Button text="Create Another po" press="CreatePO" type="Emphasized" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

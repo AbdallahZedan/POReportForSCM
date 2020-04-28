@@ -25,20 +25,20 @@ sap.ui.define([
 			// oEntry.Ebeln = dataModel.getProperty("/Ebeln");
 			oEntry.Bukrs = dataModel.getProperty("/Bukrs");
 			oEntry.Bsart = dataModel.getProperty("/Bsart");
-			oEntry.Loekz = dataModel.getProperty("/Loekz");
+			oEntry.Statu = dataModel.getProperty("/Statu");
 			oEntry.Ernam = dataModel.getProperty("/Ernam");
 			oEntry.Lifnr = dataModel.getProperty("/Lifnr");
-
+			// oEntry.Aedat = dataModel.getProperty("/Aedat");
+			oEntry.Bstyp = dataModel.getProperty("/Bstyb");
 			oEntry.POItemSet = dataModel.getProperty("/POItemSet");
-
+			// oEntry.Loekz = "";
+			
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
 					//GET RECENTLY EBELN
-					MessageBox.success("Purchase order Updated successfully");
-					oRouter.navTo("Route_DisplayPO", {
-						selectedPO: docNo
-					});
+					MessageBox.success("Purchase order Created successfully");
+					oRouter.navTo("Route_POHeader", {});
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -91,11 +91,11 @@ sap.ui.define([
 				// Ebeln: docNo,
 				Ebelp: "",
 				Ktmng: "",
-				Loekz: false,
+				// Loekz: false,
 				Matnr: "",
 				Statu: "",
-				Txz01: "",
-				oIndex: "0"
+				Txz01: ""
+				// oIndex: "0"
 			});
 
 			dataModel.setProperty("/POItemSet", oRows);
@@ -105,31 +105,31 @@ sap.ui.define([
 			oTable.setSelectedItem(oTable.getItems()[0]);
 			//  var a = oTable.getSelectedItem();
 			var oItem = oTable.getSelectedItem();
-			var oIndex = oTable.indexOfItem(oItem);
+			// var oIndex = oTable.indexOfItem(oItem);
 
-			results[0].oIndex = oIndex;
+			// results[0].oIndex = oIndex;
 		},
 
-		onEdit: function(oEvent) {
+		// onEdit: function(oEvent) {
 
-			var oItem = oEvent.getSource(),
-				oTable = this.getView().byId("itemTableId"),
-				oIndex = oTable.indexOfItem(oItem),
-				// flageModel = this.getView().getModel("dataModel"),
-				dataModel = this.getView().getModel("dataModel"),
-				results = dataModel.getProperty("/POItemSet"),
-				oFlag = results[oIndex].oIndex;
-			if (oFlag === undefined) {
+		// 	var oItem = oEvent.getSource(),
+		// 		oTable = this.getView().byId("itemTableId"),
+		// 		// oIndex = oTable.indexOfItem(oItem),
+		// 		// flageModel = this.getView().getModel("dataModel"),
+		// 		dataModel = this.getView().getModel("dataModel"),
+				// results = dataModel.getProperty("/POItemSet"),
+				// oFlag = results[oIndex].oIndex;
+			// if (oFlag === undefined) {
 				// oModel.setProperty("/oIndex", oIndex);
-				results[0].oIndex = oIndex
-				this.onPress(oItem, true);
-				dataModel.setProperty("/POItemSet", results);
-			} else {
-				debugger;
-				//reset 
-				MessageBox.error("Can't edit two items on same time");
-			}
-		},
+				// results[0].oIndex = oIndex
+				// this.onPress(oItem, true);
+				// dataModel.setProperty("/POItemSet", results);
+			// } else {
+			// 	debugger;
+			// 	//reset 
+			// 	MessageBox.error("Can't edit two items on same time");
+			// }
+		// },
 
 		onCancelPressed: function(oEvent) {
 			this.onNavBack();

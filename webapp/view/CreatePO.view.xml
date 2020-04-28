@@ -14,19 +14,20 @@
 									<f:content>
 										<core:Title text="Essential Info."/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>bukrs}"/>
-										<Input value="{dataModel>/Bukrs}"/>
+										<Input value="{dataModel>/Bukrs}" type="Tel" maxLength="4" /> 
 										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
-										<Input value="{dataModel>/Bsart}"/>
-										<Label class="sapUiSmallMarginTop" text="{i18n>Loekz}"/>
-										<Input value="{dataModel>/Loekz}"/>
+										<Input value="{dataModel>/Bsart}"  maxLength="4"/>
+										<Label class="sapUiSmallMarginTop" text="Document Type"/>
+										<Input value="{dataModel>/Bstyb}" maxLength="1"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>lifnr}"/>
-										<Input value="{dataModel>/Lifnr}"/>
+										<Input value="{dataModel>/Lifnr}" type="tel" maxLength="10"/>
 										<core:Title text="Additional Info."/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>ERNAM}"/>
-										<Input value="{dataModel>/Ernam}"/>
-										<Label class="sapUiSmallMarginTop" text="{i18n>Aedat}"/>
-										<Input
-											value="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+										<Input value="{dataModel>/Ernam}" type="Text" maxLength="12"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>Status}"/>
+										<Input value="{dataModel>/Statu}" type="Text" maxLength="10"/>
+										<!--<Input-->
+										<!--	value="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>-->
 									</f:content>
 								</f:SimpleForm>
 							</uxap:ObjectPageSubSection>
@@ -40,8 +41,8 @@
 										<Table id="itemTableId" items="{dataModel>/POItemSet}"  mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
 											<columns>
 												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
-												<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
-												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>
+												<Column width="10%"><Text text="{i18n>statu}"/></Column>
+												<!--<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>-->
 												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
 												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
 												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
@@ -49,11 +50,11 @@
 											<items>
 												<ColumnListItem>
 													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
-													<Input id="vendorTextId" value="{dataModel>Statu}"/>
-													<Input id="deletionTextId" value="{dataModel>Loekz}"/>
-													<Input id="DescriptionTextId" value="{dataModel>Txz01}"/>
-													<Input id="quantityTextId" value="{dataModel>Ktmng}"/>
-													<Input id="materialNoTextId" value="{dataModel>Matnr}"/>
+													<Input id="vendorTextId" value="{dataModel>Statu}" type="Text" maxLength="10"/>
+													<!--<Input id="deletionTextId" value="{dataModel>Loekz}"/>-->
+													<Input id="DescriptionTextId" value="{dataModel>Txz01}" type="Text" maxLength="40"/>
+													<Input id="quantityTextId" value="{dataModel>Ktmng}" type="Tel" maxLength="13"/>
+													<Input id="materialNoTextId" value="{dataModel>Matnr}" type="Tel" maxLength="40"/>
 												</ColumnListItem>
 											</items>
 										</Table>

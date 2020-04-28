@@ -88,29 +88,31 @@ sap.ui.define([
 		},
 
 		onReleasePressed: function(oEvent) {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			//call functionImport of release purchase order
-			var oModel = this.getOwnerComponent().getModel(),
-				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+				//call functionImport of release purchase order
+				var oModel = this.getOwnerComponent().getModel(),
+				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
-				releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
-				xCSRFToken = oModel.getSecurityToken();
-			//call functionImport of release purchase order
-			// var urlParam = {
-			// 	Ebeln: docNo
-			// };
-			// oModel.bTokenHandling = false;
-			// oModel.setHeaders({
-			// 	"X-CSRF-Token": xCSRFToken
-			// });
-			var urlParam = {
+				releaseMode = this.getView().getModel("releaseModel");
+				// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
+				// xCSRFToken = oModel.getSecurityToken();
+				//call functionImport of release purchase order
+				// var urlParam = {
+				// 	Ebeln: docNo
+				// };
+				// oModel.bTokenHandling = false;
+				// oModel.setHeaders({
+				// 	"X-CSRF-Token": xCSRFToken
+				// });
+				var urlParam = {
 					Ebeln: docNo
-			};
-			
+				};
+
 			oModel.callFunction("/releasePO", {
 				method: "POST",
 				urlParameters: urlParam,
 				success: function(oData, responce) {
+					releaseMode.setData(oData);
 					debugger;
 				},
 				error: function(oError) {
