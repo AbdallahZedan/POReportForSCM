@@ -1,30 +1,40 @@
 sap.ui.define([
 	"POReportForSCM/controller/BaseController",
+	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
-	"sap/ui/core/Fragment"
-], function(BaseController, MessageToast, Fragment) {
+	"sap/ui/core/Fragment",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType",
+	"sap/m/MessageBox"
+], function(BaseController, JSONModel, MessageToast, Fragment, Filter, FilterOperator, FilterType, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.V_Find_Item", {
 
 		onInit: function() {
 			debugger;
-			var myModel = this.getOwnerComponent().getModel();
-			myModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
+			var oModel = this.getOwnerComponent().getModel(),
+				dataModel = new JSONModel();
+
+			oModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
 			// var sPath = jQuery.sap.getModulePath("POReportForSCM","/model/POColumnModel.json");
 			// this.jsonModel = new sap.ui.model.json.JSONModel(sPath);
 			// var aCols = this.jsonModel.getData().cols;
 			// debugger;
-			myModel.setSizeLimit(999);
+			oModel.setSizeLimit(999);
+			this.getView().setModel(dataModel, "dataModel");
 			sap.ui.getCore().setModel(this.myModel);
 		},
 
 		onFindPressed: function(oEvent) {
-			var oView = this.getView();
-			// var selectedItem = oView.byId("item_ComboBox").getValue();
-			// var selectedPO = oView.byId("PO_comboBox").getValue();
-			var ebeln = oView.byId("ebeln_input").getValue();
-			var ebelp = oView.byId("ebelp_input").getValue();
+
+			var oView = this.getView(),
+				dataModel = oView.getModel("dataModel"),
+				ebeln = dataModel.getProperty("/Ebeln"),
+				ebelp = dataModel.getProperty("/Ebelp");
+			// var ebeln = oView.byId("ebeln_input").getValue();
+			// var ebelp = oView.byId("ebelp_input").getValue();
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			if (ebeln && ebelp) {
 				oRouter.navTo("Route_ItemDetail", {
@@ -33,29 +43,58 @@ sap.ui.define([
 				});
 
 			} else {
-				var message = "Please Enter Valid purchase document and item";
-				this.alertFunc(message);
+				MessageBox.error("Please Enter Valid purchase document and item");
 			}
 		},
 
-		alertFunc: function(message) {
-			jQuery.sap.require("sap.m.MessageBox");
+		// alertFunc: function(message) {
+		// 	jQuery.sap.require("sap.m.MessageBox");
 
-			sap.m.MessageBox.show(message, {
-				icon: sap.m.MessageBox.Icon.SUCCESS,
-				title: "Error",
-				actions: [sap.m.MessageBox.Action.OK]
-			});
-		},
+		// 	sap.m.MessageBox.show(message, {
+		// 		icon: sap.m.MessageBox.Icon.SUCCESS,
+		// 		title: "Error",
+		// 		actions: [sap.m.MessageBox.Action.OK]
+		// 	});
+		// },
 
 		handleValueHelp: function(oEvent) {
 
-			var myModel = this.getOwnerComponent().getModel();
+			var oModel = this.getOwnerComponent().getModel(),
+				oView = this.getView(),
+				dataModel = oView.getModel("dataModel"),
+				ebeln = dataModel.getProperty("/Ebeln"),
+				ebelp = dataModel.getProperty("/Ebelp"),
+				oFilters = [];
+
+			oFilters.push(new Filter("Type", FilterOperator.EQ, "poAndItem"));
+
+			if (ebeln) {
+				oFilters.push(new Filter("Value1", FilterOperator.Contains, ebeln));
+			}
+
+			if (ebelp) {
+				oFilters.push(new Filter("Value2", FilterOperator.Contains, ebelp));
+			}
+
+			this.getView().setModel(dataModel, "dataModel");
 			// var sInputValue = oEvent.getSource().getValue();
+
+			oModel.read("/searchHelpSet", {
+				filters: oFilters,
+				method: "GET",
+				success: function(data) {
+					dataModel.setData(data);
+				},
+				error: function(error) {
+					MessageBox.error("Failed on load the search help, please try again");
+				}
+
+			});
+
 			if (!this._oValueHelpDialog) {
 				this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.SearchHelp", this);
 				this.getView().addDependent(this._oValueHelpDialog);
-				this._oValueHelpDialog.setModel(myModel);
+				this._oValueHelpDialog.setModel(dataModel);
 				// this._configValueHelpDialog(sInputValue);
 				this._oValueHelpDialog.open();
 
@@ -67,17 +106,16 @@ sap.ui.define([
 
 		onCloseDialog: function(oEvent) {
 			debugger;
-			var ebeln = oEvent.getSource().getBindingContext().getProperty("Ebeln");
-			var ebelp = oEvent.getSource().getBindingContext().getProperty("Ebelp");
-			this.oView.byId("ebeln_input").setValue(ebeln);
-			this.oView.byId("ebelp_input").setValue(ebelp);
+			// var ebeln = oEvent.getSource().getBindingContext().getProperty("Ebeln");
+			// var ebelp = oEvent.getSource().getBindingContext().getProperty("Ebelp");
+			// this.oView.byId("ebeln_input").setValue(ebeln);
+			// this.oView.byId("ebelp_input").setValue(ebelp);
 			this._oValueHelpDialog.destroy();
 		},
 
 		onCancelPressed: function(oEvent) {
 				debugger;
 				this._oValueHelpDialog.destroy();
-
 			}
 			// _configValueHelpDialog: function(sInputValue) {
 			// 	var myModel = this.getOwnerComponent().getModel();

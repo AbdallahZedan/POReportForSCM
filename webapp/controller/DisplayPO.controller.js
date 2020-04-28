@@ -107,7 +107,7 @@ sap.ui.define([
 					Ebeln: docNo
 			};
 			
-			this.getView().getModel().callFunction("/releasePO", {
+			oModel.callFunction("/releasePO", {
 				method: "POST",
 				urlParameters: urlParam,
 				success: function(oData, responce) {

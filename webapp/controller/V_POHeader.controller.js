@@ -114,19 +114,19 @@ sap.ui.define([
 				oFilters = [];
 
 			if (docNo) {
-				oFilters.push(new Filter("Ebeln", FilterOperator.EQ, docNo));
+				oFilters.push(new Filter("Ebeln", FilterOperator.Contains, docNo));
 			}
 
 			if (companyCode) {
-				oFilters.push(new Filter("Bukrs", FilterOperator.EQ, companyCode));
+				oFilters.push(new Filter("Bukrs", FilterOperator.Contains, companyCode));
 			}
 
 			if (createdBy) {
-				oFilters.push(new Filter("Ernam", FilterOperator.EQ, createdBy));
+				oFilters.push(new Filter("Ernam", FilterOperator.Contains, createdBy));
 			}
 
 			if (docType) {
-				oFilters.push(new Filter("Bsart", FilterOperator.EQ, docType));
+				oFilters.push(new Filter("Bsart", FilterOperator.Contains, docType));
 			}
 
 			var oModel = this.getOwnerComponent().getModel();

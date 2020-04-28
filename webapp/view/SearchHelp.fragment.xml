@@ -43,8 +43,8 @@
 				<items>
 					<ColumnListItem  type="Navigation" press="onCloseDialog">
 						<cells>
-							<Text text="{Ebeln}"/>
-							<Text text="{Ebelp}"/>
+							<Text text="{dataModel>/Ebeln}"/>
+							<Text text="{dataModel>/Ebelp}"/>
 						</cells>
 					</ColumnListItem>
 					<!--<ObjectListItem type="Navigation" press="onCloseDialog" title="{Ebeln}" number="{Ebelp}"/>-->
