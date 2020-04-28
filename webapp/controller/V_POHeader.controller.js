@@ -101,7 +101,7 @@ sap.ui.define([
 		CreatePO: function(oEvent) {
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Route_CreatePO", {});
+			oRouter.navTo("Route_CreatePO1", {});
 		},
 
 		onFilterPressed: function(oEvent) {

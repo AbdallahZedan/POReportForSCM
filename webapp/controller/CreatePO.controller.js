@@ -5,72 +5,36 @@ sap.ui.define([
 ], function(BaseController, JSONModel, MessageBox) {
 	"use strict";
 
-	return BaseController.extend("POReportForSCM.controller.ChangePO", {
+	return BaseController.extend("POReportForSCM.controller.CreatePO", {
 
 		onInit: function() {
-			var oModel = this.getOwnerComponent().getModel(),
-				oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.getRoute("Route_ChangePO1").attachMatched(this._onRouteFound, this);
-		},
 
-		_onRouteFound: function(oEvent) {
-
-			//excute function import of release purchase order
-			//make model for release status and bind it to footer
-			var oArgument = oEvent.getParameter("arguments"),
-				oView = this.getView(),
-				dataModel = new JSONModel(),
-				releaseModel = new JSONModel(),
-				oModel = this.getOwnerComponent().getModel(),
-				oTable = this.getView().byId("itemTableId"),
-				// get expanded entity 
-				poPath = "/POHeaderSet('" + oArgument.selectedPO + "')",
-				oFilters = [];
-
+			var dataModel = new JSONModel();
 			this.getView().setModel(dataModel, "dataModel");
-			this.getView().setModel(releaseModel, "releaseModel");
-			// oView.bindElement({
-			// 	path: "/POHeaderSet('" + oArgument.SelectedItem + "')"
-			// });
-			oModel.read(poPath, {
-
-				filters: oFilters,
-				urlParameters: {
-					"$expand": "POItemSet"
-				},
-				method: "GET",
-				success: function(data) {
-					dataModel.setData(data);
-					oTable.setBusy(false);
-				},
-				error: function() {
-					oTable.setBusy(false);
-				}
-
-			});
-			debugger;
 
 		},
+
 		onSavePressed: function(oEvent) {
 			debugger;
 			var dataModel = this.getView().getModel("dataModel"),
 				oModel = this.getOwnerComponent().getModel(),
-				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
+				// docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+
 				oEntry = {};
-				
-			oEntry.Ebeln = dataModel.getProperty("/Ebeln");
+			// oEntry.Ebeln = dataModel.getProperty("/Ebeln");
 			oEntry.Bukrs = dataModel.getProperty("/Bukrs");
 			oEntry.Bsart = dataModel.getProperty("/Bsart");
 			oEntry.Loekz = dataModel.getProperty("/Loekz");
 			oEntry.Ernam = dataModel.getProperty("/Ernam");
 			oEntry.Lifnr = dataModel.getProperty("/Lifnr");
 
-			oEntry.POItemSet = dataModel.getProperty("/POItemSet/results");
+			oEntry.POItemSet = dataModel.getProperty("/POItemSet");
 
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
+					//GET RECENTLY EBELN
 					MessageBox.success("Purchase order Updated successfully");
 					oRouter.navTo("Route_DisplayPO", {
 						selectedPO: docNo
@@ -83,38 +47,12 @@ sap.ui.define([
 
 		},
 
-		onReleasePressed: function(oEvent) {
-			var oModel = this.getOwnerComponent().getModel(),
-				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
-				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln");
-			//call functionImport of release purchase order
-
-			oModel.callFunction("/releasePO", {
-				filters: oFilters,
-				urlParameters: {
-					Ebeln: docNo
-				},
-				method: "POST",
-				success: function(data) {
-					releaseModel.setData(data);
-					// messagebox for released correctly.	
-					MessageBox.success("Purchase Order No. " + docNo + " released successfully");
-				},
-				error: function() {
-					debugger;
-					MessageBox.error("unable to release Purchase order No. " + docNo);
-				}
-
-			});
-
-		},
-
 		onDelete: function(oEvent) {
 
 			debugger;
 			var oTable = this.getView().byId("itemTableId");
 			var dataModel = this.getView().getModel("dataModel");
-			var oRows = dataModel.getProperty("/POItemSet/results");
+			var oRows = dataModel.getProperty("/POItemSet");
 			var oContexts = oTable.getSelectedContexts();
 
 			for (var i = oContexts.length - 1; i >= 0; i--) {
@@ -132,7 +70,7 @@ sap.ui.define([
 				oRows.splice(index, 1);
 			}
 
-			dataModel.setProperty("/POItemSet/results", oRows);
+			dataModel.setProperty("/POItemSet", oRows);
 			oTable.removeSelections(true);
 
 		},
@@ -142,11 +80,15 @@ sap.ui.define([
 
 			var oTable = this.getView().byId("itemTableId"),
 				dataModel = this.getView().getModel("dataModel"),
-				docNo = dataModel.getProperty("/Ebeln"),
-				oRows = dataModel.getProperty("/POItemSet/results");
+				// docNo = dataModel.getProperty("/Ebeln"),
+				oRows = dataModel.getProperty("/POItemSet");
 
+			// check if oRows is undefined so we will create empty array 
+			if (oRows === undefined) {
+				oRows = [];
+			}
 			oRows.unshift({
-				Ebeln: docNo,
+				// Ebeln: docNo,
 				Ebelp: "",
 				Ktmng: "",
 				Loekz: false,
@@ -156,8 +98,9 @@ sap.ui.define([
 				oIndex: "0"
 			});
 
-			dataModel.setProperty("/POItemSet/results", oRows);
-			var results = dataModel.getProperty("/POItemSet/results");
+			dataModel.setProperty("/POItemSet", oRows);
+			dataModel.refresh(true);
+			var results = dataModel.getProperty("/POItemSet");
 			// oFlag = results[oIndex].oIndex;
 			oTable.setSelectedItem(oTable.getItems()[0]);
 			//  var a = oTable.getSelectedItem();
@@ -165,8 +108,6 @@ sap.ui.define([
 			var oIndex = oTable.indexOfItem(oItem);
 
 			results[0].oIndex = oIndex;
-			this.onPress(oItem, true);
-			dataModel.setProperty("/POItemSet/results", results);
 		},
 
 		onEdit: function(oEvent) {
@@ -176,13 +117,13 @@ sap.ui.define([
 				oIndex = oTable.indexOfItem(oItem),
 				// flageModel = this.getView().getModel("dataModel"),
 				dataModel = this.getView().getModel("dataModel"),
-				results = dataModel.getProperty("/POItemSet/results"),
+				results = dataModel.getProperty("/POItemSet"),
 				oFlag = results[oIndex].oIndex;
 			if (oFlag === undefined) {
 				// oModel.setProperty("/oIndex", oIndex);
 				results[0].oIndex = oIndex
 				this.onPress(oItem, true);
-				dataModel.setProperty("/POItemSet/results", results);
+				dataModel.setProperty("/POItemSet", results);
 			} else {
 				debugger;
 				//reset 
@@ -190,16 +131,20 @@ sap.ui.define([
 			}
 		},
 
-		onPress: function(oItem, oFlag) {
-			oItem.getDetailControl().setVisible(!oFlag);
-			var oCells = oItem.getCells();
-			$(oCells).each(function(i) {
-				var oCell = oCells[i];
-				if (oCell instanceof sap.m.Input) {
-					oCell.setEnabled(oFlag);
-				}
-			});
+		onCancelPressed: function(oEvent) {
+			this.onNavBack();
 		},
+
+		// onPress: function(oItem, oFlag) {
+		// 	oItem.getDetailControl().setVisible(!oFlag);
+		// 	var oCells = oItem.getCells();
+		// 	$(oCells).each(function(i) {
+		// 		var oCell = oCells[i];
+		// 		if (oCell instanceof sap.m.Input) {
+		// 			oCell.setEnabled(oFlag);
+		// 		}
+		// 	});
+		// },
 
 		// onSaveEdit: function(oEvent) {
 		// 	//POST

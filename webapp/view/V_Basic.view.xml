@@ -74,7 +74,7 @@
 									</m:FlexBox>
 									<m:FlexBox fitContainer="true" class="sapUiSmallMarginTop">
 										<m:Label id="Gaugs_label" class="sapUiSmallMarginTop" text="Test Third party library of Progress Indicator"/>
-										<m:Button id="gaugs_button" class="sapUiSmallMarginBegin" text="{i18n>UploadFile}" press="onUploadPress"/>
+										<m:Button id="gaugs_button" class="sapUiSmallMarginBegin" text="{i18n>UploadFile}" press="onGaugesPress"/>
 									</m:FlexBox>
 								</m:VBox>
 							</ObjectPageSubSection>

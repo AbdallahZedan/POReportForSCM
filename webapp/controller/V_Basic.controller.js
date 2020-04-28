@@ -21,7 +21,7 @@ sap.ui.define([
 
 		onCreatePoPress: function() {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Route_CreatePO", {});
+			oRouter.navTo("Route_CreatePO1", {});
 		},
 
 		onFindItemPress: function() {

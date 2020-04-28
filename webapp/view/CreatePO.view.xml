@@ -1,5 +1,5 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:f="sap.ui.layout.form" xmlns:uxap="sap.uxap" xmlns:layout="sap.ui.layout" controllerName="POReportForSCM.controller.ChangePO">
+	xmlns:f="sap.ui.layout.form" xmlns:uxap="sap.uxap" xmlns:layout="sap.ui.layout" controllerName="POReportForSCM.controller.CreatePO">
 	<Page title="{i18n>poDetailPage}" showNavButton="true" navButtonPress="onNavBack">
 		<!--<ScrollContainer>-->
 		<content>
@@ -37,7 +37,7 @@
 							<uxap:ObjectPageSubSection>
 								<Panel width="auto" class="sapUiResponsiveMargin">
 									<content>
-										<Table id="itemTableId" items="{dataModel>/POItemSet/results}"  mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
+										<Table id="itemTableId" items="{dataModel>/POItemSet}"  mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
 											<columns>
 												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
 												<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
@@ -47,13 +47,13 @@
 												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
 											</columns>
 											<items>
-												<ColumnListItem detailPress="onEdit" type="Detail">
+												<ColumnListItem>
 													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
-													<Input id="vendorTextId" value="{dataModel>Statu}" enabled="{= ${dataModel>oIndex} === '0' }"/>
-													<Input id="deletionTextId" value="{dataModel>Loekz}" enabled="false"/>
-													<Input id="DescriptionTextId" value="{dataModel>Txz01}" enabled="false"/>
-													<Input id="quantityTextId" value="{dataModel>Ktmng}" enabled="false"/>
-													<Input id="materialNoTextId" value="{dataModel>Matnr}" enabled="false"/>
+													<Input id="vendorTextId" value="{dataModel>Statu}"/>
+													<Input id="deletionTextId" value="{dataModel>Loekz}"/>
+													<Input id="DescriptionTextId" value="{dataModel>Txz01}"/>
+													<Input id="quantityTextId" value="{dataModel>Ktmng}"/>
+													<Input id="materialNoTextId" value="{dataModel>Matnr}"/>
 												</ColumnListItem>
 											</items>
 										</Table>
@@ -78,7 +78,8 @@
 				<ToolbarSpacer/>
 				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
 				<Button text="Save" type="Emphasized" press="onSavePressed"/>
-				<Button text="Release" type="Accept" press="onReleasePressed"/>
+				<Button text="Release" press="onReleasePressed"/>
+				<Button text="Cancel" type="Reject" press="onCancelPressed"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

@@ -141,6 +141,12 @@
 				"greedy": false,
 				"target": ["Target_ChangePO"]
 			}, {
+				"name": "Route_CreatePO1",
+				"pattern": "PO/create1",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Target_CreatePO1"]
+			}, {
 				"name": "Route_Item",
 				"pattern": "POHeaderSet{SelectedPO}/HeadToItemNav",
 				"titleTarget": "",
@@ -243,6 +249,13 @@
 					"transition": "slide",
 					"clearAggregation": true,
 					"viewName": "ChangePO",
+					"viewLevel": 3
+				},
+				"Target_CreatePO1": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearAggregation": true,
+					"viewName": "CreatePO",
 					"viewLevel": 3
 				},
 				"Target_PODetail": {
