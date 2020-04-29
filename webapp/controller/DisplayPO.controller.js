@@ -2,8 +2,9 @@ sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
+	"sap/m/MessageToast",
 	"POReportForSCM/controller/formatter"
-], function(BaseController, JSONModel, MessageBox, formatter) {
+], function(BaseController, JSONModel, MessageBox, MessageToast, formatter) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.DisplayPO", {
@@ -45,8 +46,9 @@ sap.ui.define([
 					dataModel.setData(data);
 					oTable.setBusy(false);
 				},
-				error: function() {
+				error: function(error) {
 					oTable.setBusy(false);
+					MessageToast.show("Failed to fetch purchase order document detail");
 				}
 
 			});
@@ -62,7 +64,7 @@ sap.ui.define([
 					releaseModel.setData(data);
 				},
 				error: function() {
-					MessageBox.error("Can't get Status of purchase order");
+					MessageToast.show("Can't get Status of purchase order");
 					debugger;
 				}
 
@@ -114,34 +116,13 @@ sap.ui.define([
 				urlParameters: urlParam,
 				success: function(oData, responce) {
 					releaseMode.setData(oData);
-					debugger;
 				},
 				error: function(oError) {
-					debugger;
+					MessageToast.show("Failure release po request!")
 				}
 			});
 
 		},
-		// onFilterPO: function(oEvent) {
-
-		// 	// build filter array
-		// 	var aFilter = [];
-		// 	var sQuery = oEvent.getSource().getValue();
-		// 	var aFilter = new Filter(
-		// 		"Bsart",
-		// 		FilterOperator.Contains,
-		// 		sQuery
-		// 	);
-
-		// 	// if (sQuery) {
-		// 	// 	aFilter.push(new Filter("Bsart", FilterOperator.Contains, sQuery));
-		// 	// }
-		// 	debugger;
-		// 	// filter binding
-		// 	var oBinding = this.getView().byId("POList").getBinding("items");
-		// 	// var oBinding = oList;
-		// 	oBinding.filter(aFilter, FilterType.Application);
-		// }
 
 	});
 

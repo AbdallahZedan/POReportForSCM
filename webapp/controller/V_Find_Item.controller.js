@@ -90,11 +90,10 @@ sap.ui.define([
 				success: function(data) {
 
 					dataModel.setProperty("/results", data.results);
-					debugger;
 					// oFlag = true;
 				},
 				error: function(error) {
-					MessageBox.error("Failed on load the search help, please try again");
+					MessageToast.show("Failed on load the search help, please try again");
 				}
 
 			});

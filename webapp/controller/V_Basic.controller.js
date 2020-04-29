@@ -1,6 +1,9 @@
 sap.ui.define([
-	"POReportForSCM/controller/BaseController"
-], function(BaseController) {
+	"POReportForSCM/controller/BaseController",
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
+], function(BaseController, JSONModel, MessageBox, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.V_Basic", {
@@ -11,6 +14,21 @@ sap.ui.define([
 		 * @memberOf POReportForSCM.view.V_Basic
 		 */
 		onInit: function() {
+
+			var dataModel = new JSONModel(),
+				oModel = this.getOwnerComponent().getModel();
+
+			this.getView().setModel(dataModel, "dataModel");
+
+			oModel.read("/userInfoSet('0001000001')", {
+
+				success: function(data) {
+					dataModel.setData(data);
+				},
+				error: function(error) {
+					MessageToast.show("Failed to fetch user info");
+				}
+			});
 
 		},
 
@@ -48,7 +66,15 @@ sap.ui.define([
 		onUploadPress: function(oEvent) {
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Route_UploadFile", {});
-		}
+		},
+		
+		onPressTel: function(oEvent) {
+			sap.m.URLHelper.triggerSms(this._getVal(oEvent));
+		},
+
+		onPressEmail: function(oEvent) {
+			sap.m.URLHelper.triggerEmail(this._getVal(oEvent), "Test subject");	
+		},
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

@@ -6,22 +6,22 @@
 			<uxap:ObjectPageLayout xmlns:layout="sap.ui.layout" xmlns:blockcolor="sap.uxap.sample.SharedBlocks" id="ObjectPage1Layout"
 				enableLazyLoading="false" showAnchorBarPopover="false" height="100%" alwaysShowContentHeader="true">
 				<uxap:sections>
-					<uxap:ObjectPageSection title="{i18n>changePO}">
+					<uxap:ObjectPageSection title="{i18n>createPoTitle}">
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection>
 								<f:SimpleForm id="headerFormId" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
 									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2">
 									<f:content>
-										<core:Title text="Essential Info."/>
+										<core:Title text="{i18n>EssInfo}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>bukrs}"/>
 										<Input value="{dataModel>/Bukrs}" type="Tel" maxLength="4" /> 
 										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
 										<Input value="{dataModel>/Bsart}" maxLength="4"/>
-										<Label class="sapUiSmallMarginTop" text="Document Type"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
 										<Input value="{dataModel>/Bstyb}" maxLength="1"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>lifnr}"/>
 										<Input value="{dataModel>/Lifnr}" type="Tel" maxLength="10"/>
-										<core:Title text="Additional Info."/>
+										<core:Title text="{i18n>AddInfo}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>ERNAM}"/>
 										<Input value="{dataModel>/Ernam}" type="Text" maxLength="12"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>Status}"/>
@@ -78,9 +78,9 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
-				<Button text="Save" type="Emphasized" press="onSavePressed"/>
-				<Button text="Release" press="onReleasePressed"/>
-				<Button text="Cancel" type="Reject" press="onCancelPressed"/>
+				<Button text="{i18n>save}" type="Emphasized" press="onSavePressed"/>
+				<Button text="{i18n>release}" press="onReleasePressed"/>
+				<Button text="{i18n>CancelButton}" type="Reject" press="onCancelPressed"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

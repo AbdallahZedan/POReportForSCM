@@ -39,12 +39,14 @@
 					</columns>
 					<items>
 						<ColumnListItem>
-						<Text id="poNumberTextId" text="{dataModel>Ebeln}"/>
-						<Text id="companyCodeTextId" text="{dataModel>Bukrs}"/>
-						<Text id="docTypeTextId" text="{dataModel>Bsart}"/>
-						<Text id="createdByTextId" text="{dataModel>Ernam}"/>
-						<Text id="createdOnTextId" text="{ path: 'dataModel>Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
-						<Text id="releaseStatusTextId" text="{dataModel>Status}"/>
+							<Text id="poNumberTextId" text="{dataModel>Ebeln}"/>
+							<Text id="companyCodeTextId" text="{dataModel>Bukrs}"/>
+							<Text id="docTypeTextId" text="{dataModel>Bsart}"/>
+							<Text id="createdByTextId" text="{dataModel>Ernam}"/>
+							<Text id="createdOnTextId"
+								text="{ path: 'dataModel>Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+							<!--<Text id="releaseStatusTextId" text="{dataModel>Status}"/>-->
+							<ObjectStatus id="releaseStatusTextId" text="{dataModel>Status}" state="{= ${dataModel>Status} === 'CREATED' ? 'Information' : 'Warning' }" />
 						</ColumnListItem>
 					</items>
 				</Table>
@@ -60,9 +62,9 @@
 		<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="Create" type="Emphasized" press="CreatePO"/>
-				<Button text="Change" press="ChangePO"/>
-				<Button text="Display" press="GoToDetails"/>
+				<Button text="{i18n>createButton}" type="Emphasized" press="CreatePO"/>
+				<Button text="{i18n>changeButton}" press="ChangePO"/>
+				<Button text="{i18n>displayButton}" press="GoToDetails"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

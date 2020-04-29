@@ -12,7 +12,7 @@
 								<f:SimpleForm id="headerFormId" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
 									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2">
 									<f:content>
-										<core:Title text="Essential Info."/>
+										<core:Title text="{i18n>EssInfo}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>bukrs}"/>
 										<Input value="{dataModel>/Bukrs}" type="Tel" maxLength="4"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
@@ -21,7 +21,7 @@
 										<Input value="{dataModel>/Loekz}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>lifnr}"/>
 										<Input value="{dataModel>/Lifnr}" type="Tel" maxLength="10"/>
-										<core:Title text="Additional Info."/>
+										<core:Title text="{i18n>AddInfo}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>ERNAM}"/>
 										<Input value="{dataModel>/Ernam}" type="Tel" maxLength="10"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>statu}"/>
@@ -79,9 +79,9 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
-				<Button text="Save" type="Emphasized" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onSavePressed"/>
-				<Button text="Release" type="Accept" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onReleasePressed"/>
-				<Button text="Create Another po" press="CreatePO" type="Emphasized" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
+				<Button text="{i18n>save}" type="Emphasized" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onSavePressed"/>
+				<Button text="{i18n>release}" type="Accept" visible="{= ${releaseModel>/Status} === 'CREATED' }" press="onReleasePressed"/>
+				<Button text="{i18n>cPo}" press="CreatePO" type="Emphasized" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>

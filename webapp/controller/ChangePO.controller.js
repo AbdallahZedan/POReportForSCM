@@ -2,7 +2,8 @@ sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
-], function(BaseController, JSONModel, MessageBox) {
+	"sap/m/MessageToast"
+], function(BaseController, JSONModel, MessageBox, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.ChangePO", {
@@ -43,8 +44,9 @@ sap.ui.define([
 					dataModel.setData(data);
 					oTable.setBusy(false);
 				},
-				error: function() {
+				error: function(oError) {
 					oTable.setBusy(false);
+					MessageToast.show("Failed to load purchase order detail")
 				}
 
 			});
@@ -59,8 +61,8 @@ sap.ui.define([
 				success: function(data) {
 					releaseModel.setData(data);
 				},
-				error: function() {
-					MessageBox.error("Can't get Status of purchase order");
+				error: function(oError) {
+					MessageToast.show("Can't get Status of purchase order");
 					debugger;
 				}
 
@@ -89,7 +91,10 @@ sap.ui.define([
 
 				success: function(oData, oResponse) {
 					MessageBox.success("Purchase order Updated successfully");
-					oRouter.navTo("Route_POHeader", {});
+					// oRouter.navTo("Route_POHeader", {});
+						oRouter.navTo("Route_DisplayPO", {
+								selectedPO: docNo
+							});
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -99,6 +104,8 @@ sap.ui.define([
 		},
 
 		onReleasePressed: function(oEvent) {
+			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+			//call functionImport of release purchase order
 			var oModel = this.getOwnerComponent().getModel(),
 				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
@@ -122,10 +129,9 @@ sap.ui.define([
 				urlParameters: urlParam,
 				success: function(oData, responce) {
 					releaseMode.setData(oData);
-					debugger;
 				},
 				error: function(oError) {
-					debugger;
+					MessageToast.show("Failure release po request!")
 				}
 			});
 

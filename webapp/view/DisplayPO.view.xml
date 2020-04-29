@@ -6,13 +6,13 @@
 			<uxap:ObjectPageLayout xmlns:layout="sap.ui.layout" xmlns:blockcolor="sap.uxap.sample.SharedBlocks" id="ObjectPage1Layout"
 				enableLazyLoading="false" showAnchorBarPopover="false" height="100%" alwaysShowContentHeader="true">
 				<uxap:sections>
-					<uxap:ObjectPageSection title="{i18n>headerPOTitle}">
+					<uxap:ObjectPageSection id="HeaderSectionId" title="{i18n>headerPOTitle}">
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection>
 								<f:SimpleForm id="headerFormId" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
 									labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2">
 									<f:content>
-										<core:Title text="Essential Info."/>
+										<core:Title text="{i18n>EssInfo}"/>
 										<Label text="{i18n>ebeln}"/>
 										<Text text="{dataModel>/Ebeln}"/>
 										<Label text="{i18n>bukrs}"/>
@@ -26,13 +26,13 @@
 										<Text text="{dataModel>/Loekz}"/>
 										<Label text="{i18n>lifnr}"/>
 										<Text text="{dataModel>/Lifnr}"/>
-										<core:Title text="Additional Info."/>
+										<core:Title text="{i18n>AddInfo}"/>
 										<Label text="{i18n>ERNAM}"/>
 										<Text text="{dataModel>/Ernam}"/>
 										<Label text="{i18n>statu}"/>
 										<Text text="{dataModel>/Statu}"/>
 										<Label text="{i18n>currency}"/>
-										<ObjectStatus text="{path: 'dataModel>/Waers', formatter: '.formatter.currencyFormat'}" state="{= ${dataModel>/Status} === 'CREATED' ? 'Warning' : 'Information' }"/>
+										<ObjectStatus text="{path: 'dataModel>/Waers', formatter: '.formatter.currencyFormat'}" state="{= ${dataModel>/Status} === 'CREATED' ? 'Information' : 'Warning' }"/>
 										<!--<Text-->
 										<!--	text="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>-->
 									</f:content>
@@ -40,7 +40,7 @@
 							</uxap:ObjectPageSubSection>
 						</uxap:subSections>
 					</uxap:ObjectPageSection>
-					<uxap:ObjectPageSection title="{i18n>itemInfo}">
+					<uxap:ObjectPageSection id="itemSectionId" title="{i18n>itemInfo}">
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection>
 								<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
@@ -74,9 +74,9 @@
 			<OverflowToolbar>
 				<ToolbarSpacer/>
 				<!--<Button text="Display" type="Reject" press="GoToDetails"/>-->
-				<Button text="Release" type="Emphasized" press="onReleasePressed" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
-				<Button text="Change" type="Accept" press="ChangePO" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
-				<Button text="Create Another po" press="CreatePO" type="Emphasized" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
+				<Button text="{i18n>release}" type="Emphasized" press="onReleasePressed" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
+				<Button text="{i18n>changeButton}" type="Accept" press="ChangePO" visible="{= ${releaseModel>/Status} === 'CREATED' }"/>
+				<Button text="{i18n>createButton}" press="CreatePO" type="Emphasized" visible="{= ${releaseModel>/Status} === 'RELEASED' }"/>
 			</OverflowToolbar>
 		</footer>
 	</Page>
