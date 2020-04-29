@@ -10,13 +10,13 @@
 							<!--<ComboBox id="PO_comboBox" width="70%" showSecondaryValues="true" placeholder="{i18n>PONumberPH}"-->
 							<!--items="{ path: '/POHeaderSet', length: 600, sorter: { path: 'Ebeln' }}">-->
 							<!--<core:ListItem key="{Ebeln}" text="{Ebeln}" additiona6lText="{Bukrs}"/>-->
-							<Input id="ebeln_input" value="{dataModel>/Ebeln}" width="70%" showValueHelp="true" valueHelpRequest=".handleValueHelp" placeholder="{i18n>PONumberPH}"/>
+							<Input id="ebeln_input" value="{dataModel>/Ebeln}" width="70%" showValueHelp="true" valueHelpRequest=".handleValueHelp" placeholder="{i18n>PONumberPH}" type="Tel" maxLength="10"/>
 							<!--</ComboBox>-->
 							<Label text="{i18n>ItemNumber}" width="100%" id="item_label" class="sapUiTinyMarginTopBottom" design="Bold"/>
 							<!--<ComboBox id="item_ComboBox" width="70%" showSecondaryValues="true" placeholder="{i18n>ItemPH}"-->
 							<!--items="{ path: '/POItemSet', length: 600, sorter: { path: 'Ebelp' }}">-->
 							<!--<core:ListItem key="{Ebelp}" text="{Ebelp}" additionalText="{Txz01}"/>-->
-							<Input id="ebelp_input" value="{dataModel>/Ebelp}" width="70%" showValueHelp="true" placeholder="{i18n>ItemPH}" valueHelpRequest=".handleValueHelp"/>
+							<Input id="ebelp_input" value="{dataModel>/Ebelp}" width="70%" showValueHelp="true" placeholder="{i18n>ItemPH}" valueHelpRequest=".handleValueHelp" type="Tel" maxLength="5"/>
 							<!--</ComboBox>-->
 						</items>
 						<Button text="{i18n>find}" width="100px" id="__button0" class="sapUiSmallMarginTop" press="onFindPressed" icon="sap-icon://sys-find"/>

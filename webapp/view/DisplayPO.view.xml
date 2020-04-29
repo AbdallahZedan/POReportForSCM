@@ -20,17 +20,21 @@
 										<Label text="{i18n>Bsart}"/>
 										<Text text="{dataModel>/Bsart}"/>
 										<Label text="{i18n>releaseStatus}"/>
-										<Text text="{dataModel>/Status}"/>
+										<ObjectStatus
+										 text="{dataModel>/Status}" state="{= ${dataModel>/Status} === 'CREATED' ? 'Success' : 'Error' }" />
 										<Label text="{i18n>Loekz}"/>
 										<Text text="{dataModel>/Loekz}"/>
 										<Label text="{i18n>lifnr}"/>
 										<Text text="{dataModel>/Lifnr}"/>
 										<core:Title text="Additional Info."/>
-										<Label text="{i18n>ERNAM}}"/>
+										<Label text="{i18n>ERNAM}"/>
 										<Text text="{dataModel>/Ernam}"/>
-										<Label text="{i18n>Aedat}"/>
-										<Text
-											text="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+										<Label text="{i18n>statu}"/>
+										<Text text="{dataModel>/Statu}"/>
+										<Label text="{i18n>currency}"/>
+										<ObjectStatus text="{path: 'dataModel>/Waers', formatter: '.formatter.currencyFormat'}" state="{= ${dataModel>/Status} === 'CREATED' ? 'Warning' : 'Information' }"/>
+										<!--<Text-->
+										<!--	text="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>-->
 									</f:content>
 								</f:SimpleForm>
 							</uxap:ObjectPageSubSection>

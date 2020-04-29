@@ -14,19 +14,20 @@
 									<f:content>
 										<core:Title text="Essential Info."/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>bukrs}"/>
-										<Input value="{dataModel>/Bukrs}"/>
+										<Input value="{dataModel>/Bukrs}" type="Tel" maxLength="4"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>Bsart}"/>
-										<Input value="{dataModel>/Bsart}"/>
+										<Input value="{dataModel>/Bsart}" maxLength="4"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>Loekz}"/>
 										<Input value="{dataModel>/Loekz}"/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>lifnr}"/>
-										<Input value="{dataModel>/Lifnr}"/>
+										<Input value="{dataModel>/Lifnr}" type="Tel" maxLength="10"/>
 										<core:Title text="Additional Info."/>
 										<Label class="sapUiSmallMarginTop" text="{i18n>ERNAM}"/>
-										<Input value="{dataModel>/Ernam}"/>
-										<Label class="sapUiSmallMarginTop" text="{i18n>Aedat}"/>
-										<Input
-											value="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>
+										<Input value="{dataModel>/Ernam}" type="Tel" maxLength="10"/>
+										<Label class="sapUiSmallMarginTop" text="{i18n>statu}"/>
+										<Input value="{dataModel>/Statu}" type="Text" maxLength="10"/>
+										<!--<Input-->
+										<!--	value="{ path: 'dataModel>/Aedat', type: 'sap.ui.model.type.Date', formatOptions: { style: 'full', source: { pattern: 'yyyy/MM/dd' } } }"/>-->
 									</f:content>
 								</f:SimpleForm>
 							</uxap:ObjectPageSubSection>

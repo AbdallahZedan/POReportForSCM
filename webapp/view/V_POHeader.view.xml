@@ -6,22 +6,22 @@
 			<fb:filterItems>
 				<fb:FilterItem name="A" label="{i18n>PONumber}">
 					<fb:control>
-						<Input id="docNoId" enabled="true" maxLength="10" class="sapUiSmallMarginBegin"/>
+						<Input id="docNoId" enabled="true" type="Tel" maxLength="10" class="sapUiSmallMarginBegin"/>
 					</fb:control>
 				</fb:FilterItem>
 				<fb:FilterItem name="B" label="{i18n>bukrs}">
 					<fb:control>
-						<Input id="companyCodeId" maxLength="10" class="sapUiSmallMarginBegin"/>
+						<Input id="companyCodeId" type="Tel" maxLength="4" class="sapUiSmallMarginBegin"/>
 					</fb:control>
 				</fb:FilterItem>
 				<fb:FilterItem name="C" label="{i18n>ERNAM}">
 					<fb:control>
-						<Input id="createdById" enabled="true" maxLength="10" class="sapUiSmallMarginBegin"/>
+						<Input id="createdById" enabled="true" class="sapUiSmallMarginBegin" type="Text" maxLength="12"/>
 					</fb:control>
 				</fb:FilterItem>
 				<fb:FilterItem name="D" label="{i18n>Bsart}">
 					<fb:control>
-						<Input id="docTypeId" enabled="true" maxLength="10" class="sapUiSmallMarginBegin"/>
+						<Input id="docTypeId" enabled="true" maxLength="4" class="sapUiSmallMarginBegin"/>
 					</fb:control>
 				</fb:FilterItem>
 			</fb:filterItems>

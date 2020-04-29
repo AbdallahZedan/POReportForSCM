@@ -2,11 +2,12 @@ sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
-], function(BaseController, JSONModel, MessageBox) {
+	"POReportForSCM/controller/formatter"
+], function(BaseController, JSONModel, MessageBox, formatter) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.DisplayPO", {
-
+		formatter: formatter,
 		onInit: function() {
 			debugger;
 			var oModel = this.getOwnerComponent().getModel(),
@@ -89,24 +90,24 @@ sap.ui.define([
 
 		onReleasePressed: function(oEvent) {
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
-				//call functionImport of release purchase order
-				var oModel = this.getOwnerComponent().getModel(),
+			//call functionImport of release purchase order
+			var oModel = this.getOwnerComponent().getModel(),
 				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				releaseMode = this.getView().getModel("releaseModel");
-				// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
-				// xCSRFToken = oModel.getSecurityToken();
-				//call functionImport of release purchase order
-				// var urlParam = {
-				// 	Ebeln: docNo
-				// };
-				// oModel.bTokenHandling = false;
-				// oModel.setHeaders({
-				// 	"X-CSRF-Token": xCSRFToken
-				// });
-				var urlParam = {
-					Ebeln: docNo
-				};
+			// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
+			// xCSRFToken = oModel.getSecurityToken();
+			//call functionImport of release purchase order
+			// var urlParam = {
+			// 	Ebeln: docNo
+			// };
+			// oModel.bTokenHandling = false;
+			// oModel.setHeaders({
+			// 	"X-CSRF-Token": xCSRFToken
+			// });
+			var urlParam = {
+				Ebeln: docNo
+			};
 
 			oModel.callFunction("/releasePO", {
 				method: "POST",
