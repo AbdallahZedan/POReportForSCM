@@ -49,7 +49,7 @@ sap.ui.define([
 			oItems.forEach(function(x) {
 				var itemOb = {
 					id: x.mAggregations.cells[2],
-					type: "num",
+					type: "float",
 					max: 13
 				};
 				oValidator.push(itemOb);
@@ -72,13 +72,22 @@ sap.ui.define([
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
-					//GET RECENTLY EBELN
-					MessageToast.show("Purchase order Created successfully");
-					setTimeout(function() {
-						oRouter.navTo("Route_DisplayPO", {
-							selectedPO: oResponse.data.Ebeln
-						});
-					}, 1000);
+					
+					MessageBox.success("Purchase order Created successfully.", {
+						actions: ["Go to Overview", MessageBox.Action.CLOSE],
+						emphasizedAction: "Go to Overview",
+						onClose: function(sAction) {
+							if (sAction === "CLOSE") {
+								oRouter.navTo("Route_DisplayPO", {
+									selectedPO: oResponse.data.Ebeln
+								});
+							} else {
+								oRouter.navTo("Route_POHeader", {});
+							}
+						}
+
+					});
+
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -158,14 +167,27 @@ sap.ui.define([
 			// }
 			var oFlag = true,
 				letterFlag = true,
-				letters = /^[A-Za-z]+$/,
-				that = this;
+				that = this,
+				oValue = "";
 
 			oArray.forEach(function(x) {
-				if (x.type === "char") {
-					var oValue = x.id.getValue();
-					letterFlag = that.validateAlph(oValue);
+				switch (x.type) {
+					case "char":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAlph(oValue);
+						break;
+					case "num":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAllNumber(oValue);
+						break;
+					case "float":
+						oValue = x.id.getValue();
+						letterFlag = that.validateFloat(oValue);
+						break;
+					default:
+						letterFlag = true;
 				}
+
 				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
 					x.id.setValueState(sap.ui.core.ValueState.Error);
 					oFlag = false;
@@ -188,7 +210,25 @@ sap.ui.define([
 				return false;
 			}
 
-		}
+		},
+
+		validateAllNumber: function(oValue) {
+			var numbers = /^[0-9]+$/;
+			if (oValue.match(numbers)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		validateFloat: function(oValue) {
+			var numbers = /^\d+(\.\d+)?$/;
+			if (oValue.match(numbers)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 
 	});
 

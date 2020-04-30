@@ -5,8 +5,9 @@
 			<Page title="{i18n>findInvoicePageTitle}" showNavButton="true" navButtonPress="onNavBack">
 				<content>
 					<VBox>
-						<Input width="40%" id="invoice_input" placeholder="{i18n>findInvoicePH}" value="{dataModel>/Xblnr}" class="sapUiSmallMarginBottom" type="Number"/>
-						<Button text="{i18n>findInvoiceButton}" width="150px" id="get_button" press="onPressFind"/>
+						<Label text="Reference No." class="sapUiSmallMargin sapUiSmallMarginTop" />
+						<Input width="40%" id="invoice_input" placeholder="{i18n>findInvoicePH}" value="{dataModel>/Xblnr}" showValueHelp="true" valueHelpRequest=".onPressValueHelp" class="sapUiSmallMarginBottom sapUiTinyMargin" type="Number"/>
+						<Button text="{i18n>findInvoiceButton}" class="sapUiSmallMargin" width="150px" id="get_button" press="onPressFind"/>
 					</VBox>
 				</content>
 			</Page>

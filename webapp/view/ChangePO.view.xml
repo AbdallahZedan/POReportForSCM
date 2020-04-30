@@ -50,7 +50,7 @@
 											</columns>
 											<items>
 												<ColumnListItem detailPress="onEdit" type="Detail">
-													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" editable="false"/>
+													<Input id="itemNumberTextId" value="{dataModel>Ebelp}" enabled="false" editable="false"/>
 													<Input id="vendorTextId" value="{dataModel>Statu}" enabled="false"  type="Text" maxLength="10"/>
 													<!--<Input id="deletionTextId" value="{dataModel>Loekz}" enabled="false"/>-->
 													<Input id="DescriptionTextId" value="{dataModel>Txz01}" enabled="false" type="Text" maxLength="40"/>

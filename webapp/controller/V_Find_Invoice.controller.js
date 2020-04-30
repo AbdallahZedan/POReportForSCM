@@ -2,8 +2,12 @@ sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
-	"sap/m/MessageToast"
-], function(BaseController, JSONModel, MessageBox, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/ui/core/Fragment",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType"
+], function(BaseController, JSONModel, MessageBox, MessageToast, Fragment, Filter, FilterOperator, FilterType) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.V_Find_Invoice", {
@@ -23,6 +27,7 @@ sap.ui.define([
 
 			debugger;
 			var dataModel = this.getView().getModel("dataModel"),
+				oModel = this.getOwnerComponent().getModel(),
 				xblnr = dataModel.getProperty("/Xblnr"),
 				xblnrOb = {
 					id: this.getView().byId("invoice_input"),
@@ -55,32 +60,66 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf POReportForSCM.view.V_Find_Invoice
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
+		onPressValueHelp: function(oEvent) {
+			var oModel = this.getOwnerComponent().getModel(),
+				oView = this.getView(),
+				dataModel = oView.getModel("dataModel"),
+				// ebeln = dataModel.getProperty("/Ebeln"),
+				// ebelp = dataModel.getProperty("/Ebelp"),
+				xblnr = dataModel.getProperty("/Xblnr"),
+				// oFlage = false,
+				oFilters = [];
 
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf POReportForSCM.view.V_Find_Invoice
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
+			oFilters.push(new Filter("Type", FilterOperator.EQ, "rseg_help_"));
 
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf POReportForSCM.view.V_Find_Invoice
-		 */
-		//	onExit: function() {
-		//
-		//	}
+			if (xblnr) {
+				oFilters.push(new Filter("Value1", FilterOperator.Contains, xblnr));
+			}
+			
+			this.getView().setModel(dataModel, "dataModel");
+			// var sInputValue = oEvent.getSource().getValue();
 
+			oModel.read("/searchHelpSet", {
+				filters: oFilters,
+				method: "GET",
+				success: function(data) {
+
+					dataModel.setProperty("/results", data.results);
+					// oFlag = true;
+				},
+				error: function(error) {
+					MessageToast.show("Failed on load the search help, please try again");
+				}
+
+			});
+
+			// setTimeout(function() {
+			// if (oFlage) {
+			// if (!this._oValueHelpDialog) {
+			this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.InvoiceSearchHelp", this);
+			this.getView().addDependent(this._oValueHelpDialog);
+			this._oValueHelpDialog.setModel(dataModel);
+			// this._configValueHelpDialog(sInputValue);
+			this._oValueHelpDialog.open();
+
+		},
+		
+		onCloseDialog: function(oEvent) {
+			debugger;
+			var oTabele = this.getView().byId("searchHelpTableId");
+			var oItem = oEvent.getSource();
+			var xblnr = oItem.mAggregations.cells[0].mProperties.text;
+			var dataModel = this.getView().getModel("dataModel");
+			dataModel.setProperty("/Xblnr", xblnr);
+			this.getView().setModel(dataModel);
+			this._oValueHelpDialog.destroy();
+		},
+
+		onCancelPressed: function(oEvent) {
+			debugger;
+			this._oValueHelpDialog.destroy();
+		},
+		
 	});
 
 });

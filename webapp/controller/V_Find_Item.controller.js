@@ -156,17 +156,26 @@ sap.ui.define([
 		},
 
 		validator: function(oArray) {
-
+			// }
 			var oFlag = true,
 				letterFlag = true,
-				letters = /^[A-Za-z]+$/,
-				that = this;
+				that = this,
+				oValue = "";
 
 			oArray.forEach(function(x) {
-				// if (x.type === "char") {
-				// 	var oValue = x.id.getValue();
-				// 	letterFlag = that.validateAlph(oValue);
-				// }
+				switch (x.type) {
+					case "char":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAlph(oValue);
+						break;
+					case "num":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAllNumber(oValue);
+						break;
+					default:
+						letterFlag = true;
+				}
+
 				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
 					x.id.setValueState(sap.ui.core.ValueState.Error);
 					oFlag = false;
@@ -178,96 +187,27 @@ sap.ui.define([
 			return oFlag;
 		},
 
-		// _configValueHelpDialog: function(sInputValue) {
-		// 	var myModel = this.getOwnerComponent().getModel();
+		validateAlph: function(oValue) {
 
-		// 	myModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
-		// 	//var poList = myModel.getProperty('/ZJ1bnfeEbelpForEbelnSet');
-		// 	myModel.read("/ZJ1bnfeEbelpForEbelnSet", {
-		// 		success: function(oRetrievedResult) {
-		// 			var json = new sap.ui.model.json.JSONModel(oRetrievedResult);
-		// 			var result = json.getProperty("/results");
-		// 			result.forEach(function(oList) {
-		// 				oList.selected = (oList.Ebelp === sInputValue);
-		// 			});
-		// 			myModel.setProperty("/ZJ1bnfeEbelpForEbelnSet", result);
-		// 		},
-		// 		error: function(oError) { /* do something */
-		// 			alert("error");
-		// 		}
-		// 	});
+			var letters = /^[A-Za-z]+$/;
+			if (oValue.match(letters)) {
+				// alert('Your name have accepted : you can try another');
+				return true;
+			} else {
+				// alert('Please input alphabet characters only');
+				return false;
+			}
 
-		// },
+		},
 
-		//		// onRecordPressed
-		// handleValueHelpClose: function(oEvent) {
-
-		// 	// var s = oEvent.getParameter("item_id");
-		// 	// if (s) {
-		// 	// 	var a = s.getBindingContext().getObject().Ebelp;
-		// 	// 	this.getView().byId("ebeln_input").setValue(a);
-		// 	// }
-		// 	var oModel = this.getView().getModel(),
-		// 		oInput = this.byId("ebelp_input");
-		// 	oModel.read("/ZJ1bnfeEbelpForEbelnSet", {
-		// 		success: function(oRetrievedResult) {
-		// 			var json = new sap.ui.model.json.JSONModel(oRetrievedResult);
-		// 			var result = json.getProperty("/results");
-
-		// 			var bHasSelected = result.some(function(oList) {
-		// 				if (oList.selected) {
-		// 					oInput.setValue(oList.Ebelp);
-		// 					return true;
-		// 				}
-
-		// 				if (!bHasSelected) {
-		// 					oInput.setValue(null);
-		// 				}
-		// 			});
-
-		// 		},
-		// 		error: function(oError) { /* do something */
-		// 			alert("error");
-		// 		}
-		// 	});
-
-		// },
-
-		// handleValueHelp: function(oEvent) {
-
-		// 	var oModel = this.getOwnerComponent().getModel();
-		// 	var sInputValue = oEvent.getSource().getValue();
-		// 	this.inputId = oEvent.getSource().getId();
-		// 	var path;
-		// 	var oTableStdListTemplate;
-		// 	var oFilterTableNo;
-		// 	this.oDialog = sap.ui.xmlfragment("POReportForSCM.view.SearchHelp", this);
-		// 	path = "cicwd.cic.ae:44301//sap/opu/odata/sap/ZGW_PO3_SRV/ZJ1bnfeEbelpForEbelnSet";
-		// 	oTableStdListTemplate = new sap.m.StandardListItem({
-		// 		title: "{Ebeln}",
-		// 		description: "{Ebelp}"
-		// 	}); // //create a filter for the binding
-		// 	oFilterTableNo = new sap.ui.model.Filter("Ebelp", sap.ui.model.FilterOperator.EQ, sInputValue);
-		// 	this.oDialog.unbindAggregation("item");
-		// 	// this.oDialog.setModel(oModel);
-		// 	this.oDialog.bindAggregation("item", {
-		// 		path: path,
-		// 		template: oTableStdListTemplate,
-		// 		filters: [oFilterTableNo]
-		// 	}); // }// open value help dialog filtered by the input value
-		// 	this.oDialog.open(sInputValue);
-		// },
-
-		// handleTableValueHelpConfirm: function(e) {
-		// 	debugger;
-		// 	var s = e.getParameter("selectedItem");
-		// 	if (s) {
-		// 		this.byId(this.inputId).setValue(s.getBindingContext().getObject().Bname);
-		// 		this.readRefresh(e);
-		// 	}
-		// 	this.oDialog.destroy();
-		// }
-
+		validateAllNumber: function(oValue) {
+			var numbers = /^[-+]?[0-9]+$/;
+			if (oValue.match(numbers)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 	});
 
 });

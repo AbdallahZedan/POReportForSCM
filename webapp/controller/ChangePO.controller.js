@@ -76,7 +76,7 @@ sap.ui.define([
 				oModel = this.getOwnerComponent().getModel(),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
-					bukrsInput = this.getView().byId("companyCodeInputId"),
+				bukrsInput = this.getView().byId("companyCodeInputId"),
 				bsartInput = this.getView().byId("orderTypeInputId"),
 				lifnrInput = this.getView().byId("vendorInputId"),
 				oTable = this.getView().byId("itemTableId"),
@@ -102,8 +102,8 @@ sap.ui.define([
 
 			oItems.forEach(function(x) {
 				var itemOb = {
-					id: x.mAggregations.cells[2],
-					type: "num",
+					id: x.mAggregations.cells[3],
+					type: "float",
 					max: 13
 				};
 				oValidator.push(itemOb);
@@ -128,14 +128,20 @@ sap.ui.define([
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
-					MessageToast.show("Purchase order Updated successfully");
-					// oRouter.navTo("Route_POHeader", {});
-					setTimeout(function() {
-						oRouter.navTo("Route_DisplayPO", {
-							selectedPO: docNo
-						});
-					}, 1000);
+					MessageBox.success("Purchase order Updated successfully.", {
+						actions: ["Go to Overview", MessageBox.Action.CLOSE],
+						emphasizedAction: "Go to Overview",
+						onClose: function(sAction) {
+							if (sAction === "CLOSE") {
+								oRouter.navTo("Route_DisplayPO", {
+									selectedPO: docNo
+								});
+							} else {
+								oRouter.navTo("Route_POHeader", {});
+							}
+						}
 
+					});
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -170,11 +176,15 @@ sap.ui.define([
 				urlParameters: urlParam,
 				success: function(oData, responce) {
 					releaseMode.setData(oData);
-					setTimeout(function() {
-						oRouter.navTo("Route_DisplayPO", {
-							selectedPO: docNo
-						});
-					}, 1000);
+					MessageBox.success("Purchase order Updated successfully.", {
+						actions: [MessageBox.Action.OK],
+						emphasizedAction: "Go to Overview",
+						onClose: function(sAction) {
+							oRouter.navTo("Route_DisplayPO", {
+								selectedPO: docNo
+							});
+						}
+					});
 				},
 				error: function(oError) {
 					MessageToast.show("Failure release po request!");
@@ -286,14 +296,27 @@ sap.ui.define([
 			// }
 			var oFlag = true,
 				letterFlag = true,
-				letters = /^[A-Za-z]+$/,
-				that = this;
+				that = this,
+				oValue = "";
 
 			oArray.forEach(function(x) {
-				if (x.type === "char") {
-					var oValue = x.id.getValue();
-					letterFlag = that.validateAlph(oValue);
+				switch (x.type) {
+					case "char":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAlph(oValue);
+						break;
+					case "num":
+						oValue = x.id.getValue();
+						letterFlag = that.validateAllNumber(oValue);
+						break;
+					case "float":
+						oValue = x.id.getValue();
+						letterFlag = that.validateFloat(oValue);
+						break;
+					default:
+						letterFlag = true;
 				}
+
 				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
 					x.id.setValueState(sap.ui.core.ValueState.Error);
 					oFlag = false;
@@ -316,7 +339,25 @@ sap.ui.define([
 				return false;
 			}
 
-		}
+		},
+
+		validateAllNumber: function(oValue) {
+			var numbers = /^[0-9]+$/;
+			if (oValue.match(numbers)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		validateFloat: function(oValue) {
+			var numbers = /^\d+(\.\d+)?$/;
+			if (oValue.match(numbers)) {
+				return true;
+			} else {
+				return false;
+			}
+		},
 
 		// onSaveEdit: function(oEvent) {
 		// 	//POST

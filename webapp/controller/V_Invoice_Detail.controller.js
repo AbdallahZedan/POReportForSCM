@@ -13,7 +13,7 @@ sap.ui.define([
 		onInit: function(oEvent) {
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			// oRouter.getRoute("Route_InvoiceDetail").attachMatched(this._onRouteFound, this);
-			var dataModel = sap.ui.getCore().byId("dataModel");
+			var dataModel = sap.ui.getCore().getModel("dataModel");
 			this.getView().setModel(dataModel, "dataModel");
 		},
 

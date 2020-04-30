@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="searchHelp_id" title="{i18n>SearchHelpDialogTitle}">
+		<Table id="searchHelpTableId" class="sapUiResponsiveMargin" width="auto" items="{dataModel>/results}">
+			<columns>
+					<Column>
+						<Text text="{i18n>xblnr}"/>
+					</Column>
+				</columns>
+			<!--<List >-->
+				<items>
+					<ColumnListItem  type="Navigation" press="onCloseDialog">
+						<cells>
+							<Text text="{dataModel>Value1}"/>
+						</cells>
+					</ColumnListItem>
+					<!--<ObjectListItem type="Navigation" press="onCloseDialog" title="{Ebeln}" number="{Ebelp}"/>-->
+				</items>
+			<!--</List>-->
+		</Table>
+		<beginButton>
+			<Button text="{i18n>CancelButton}" press="onCancelPressed"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
