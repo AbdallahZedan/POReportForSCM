@@ -2,7 +2,8 @@ sap.ui.define([
 	"POReportForSCM/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
-], function(BaseController, JSONModel, MessageBox) {
+	"sap/m/MessageToast"
+], function(BaseController, JSONModel, MessageBox, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.CreatePO", {
@@ -15,13 +16,49 @@ sap.ui.define([
 		},
 
 		onSavePressed: function(oEvent) {
+
 			debugger;
 			var dataModel = this.getView().getModel("dataModel"),
 				oModel = this.getOwnerComponent().getModel(),
-				// docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+				bukrsInput = this.getView().byId("companyCodeInputId"),
+				bsartInput = this.getView().byId("orderTypeInputId"),
+				lifnrInput = this.getView().byId("vendorInputId"),
+				oTable = this.getView().byId("itemTableId"),
+				oItems = oTable.mAggregations.items,
 
+				bukrsOb = {
+					id: bukrsInput,
+					type: "num",
+					max: 4
+				},
+				bsartOb = {
+					id: bsartInput,
+					type: "char",
+					max: 4
+				},
+				lifnrOb = {
+					id: lifnrInput,
+					type: "num",
+					max: 10
+				},
+				oValidator = [bukrsOb, bsartOb, lifnrOb],
+				// oValidator = [bukrsInput, bsartInput, lifnrInput],
 				oEntry = {};
+
+			oItems.forEach(function(x) {
+				var itemOb = {
+					id: x.mAggregations.cells[2],
+					type: "num",
+					max: 13
+				};
+				oValidator.push(itemOb);
+			});
+			var validatorFlag = this.validator(oValidator);
+			if (!validatorFlag) {
+				MessageToast.show("Fill all required inputs");
+				return;
+			}
 			// oEntry.Ebeln = dataModel.getProperty("/Ebeln");
 			oEntry.Bukrs = dataModel.getProperty("/Bukrs");
 			oEntry.Bsart = dataModel.getProperty("/Bsart");
@@ -31,14 +68,17 @@ sap.ui.define([
 			// oEntry.Aedat = dataModel.getProperty("/Aedat");
 			oEntry.Bstyp = dataModel.getProperty("/Bstyb");
 			oEntry.POItemSet = dataModel.getProperty("/POItemSet");
-			// oEntry.Loekz = "";
-			
+
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
 					//GET RECENTLY EBELN
-					MessageBox.success("Purchase order Created successfully");
-					oRouter.navTo("Route_POHeader", {});
+					MessageToast.show("Purchase order Created successfully");
+					setTimeout(function() {
+						oRouter.navTo("Route_DisplayPO", {
+							selectedPO: oResponse.data.Ebeln
+						});
+					}, 1000);
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -95,7 +135,7 @@ sap.ui.define([
 				Matnr: "",
 				Statu: "",
 				Txz01: ""
-				// oIndex: "0"
+					// oIndex: "0"
 			});
 
 			dataModel.setProperty("/POItemSet", oRows);
@@ -110,77 +150,45 @@ sap.ui.define([
 			// results[0].oIndex = oIndex;
 		},
 
-		// onEdit: function(oEvent) {
-
-		// 	var oItem = oEvent.getSource(),
-		// 		oTable = this.getView().byId("itemTableId"),
-		// 		// oIndex = oTable.indexOfItem(oItem),
-		// 		// flageModel = this.getView().getModel("dataModel"),
-		// 		dataModel = this.getView().getModel("dataModel"),
-				// results = dataModel.getProperty("/POItemSet"),
-				// oFlag = results[oIndex].oIndex;
-			// if (oFlag === undefined) {
-				// oModel.setProperty("/oIndex", oIndex);
-				// results[0].oIndex = oIndex
-				// this.onPress(oItem, true);
-				// dataModel.setProperty("/POItemSet", results);
-			// } else {
-			// 	debugger;
-			// 	//reset 
-			// 	MessageBox.error("Can't edit two items on same time");
-			// }
-		// },
-
 		onCancelPressed: function(oEvent) {
 			this.onNavBack();
 		},
 
-		// onPress: function(oItem, oFlag) {
-		// 	oItem.getDetailControl().setVisible(!oFlag);
-		// 	var oCells = oItem.getCells();
-		// 	$(oCells).each(function(i) {
-		// 		var oCell = oCells[i];
-		// 		if (oCell instanceof sap.m.Input) {
-		// 			oCell.setEnabled(oFlag);
-		// 		}
-		// 	});
-		// },
+		validator: function(oArray) {
+			// }
+			var oFlag = true,
+				letterFlag = true,
+				letters = /^[A-Za-z]+$/,
+				that = this;
 
-		// onSaveEdit: function(oEvent) {
-		// 	//POST
-		// 	this.changeBack(oEvent);
-		// },
+			oArray.forEach(function(x) {
+				if (x.type === "char") {
+					var oValue = x.id.getValue();
+					letterFlag = that.validateAlph(oValue);
+				}
+				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
+					x.id.setValueState(sap.ui.core.ValueState.Error);
+					oFlag = false;
+					letterFlag = true;
+				} else {
+					x.id.setValueState(sap.ui.core.ValueState.None);
+				}
+			});
+			return oFlag;
+		},
 
-		// onCancelEdit: function(oEvent) {
-		// 	this.changeBack(oEvent);
-		// },
+		validateAlph: function(oValue) {
 
-		// changeBack: function(oEvent) {
-		// 	var oItem = oEvent.getSource().getParent(),
-		// 		oModel = this.getView().getModel("dataModel");
-		// 	oModel.setProperty("/oIndex", undefined);
-		// 	this.onPress(oItem, false);
-		// },
-		// onFilterPO: function(oEvent) {
+			var letters = /^[A-Za-z]+$/;
+			if (oValue.match(letters)) {
+				// alert('Your name have accepted : you can try another');
+				return true;
+			} else {
+				// alert('Please input alphabet characters only');
+				return false;
+			}
 
-		// 	// build filter array
-		// 	var aFilter = [];
-		// 	var sQuery = oEvent.getSource().getValue();
-		// 	var aFilter = new Filter(
-		// 		"Bsart",
-		// 		FilterOperator.Contains,
-		// 		sQuery
-		// 	);
-
-		// 	// if (sQuery) {
-		// 	// 	aFilter.push(new Filter("Bsart", FilterOperator.Contains, sQuery));
-		// 	// }
-		// 	debugger;
-		// 	// filter binding
-		// 	var oBinding = this.getView().byId("POList").getBinding("items");
-		// 	// var oBinding = oList;
-		// 	oBinding.filter(aFilter, FilterType.Application);
-		// }
+		}
 
 	});
 

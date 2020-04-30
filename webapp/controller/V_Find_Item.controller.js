@@ -100,17 +100,17 @@ sap.ui.define([
 
 			// setTimeout(function() {
 			// if (oFlage) {
-			if (!this._oValueHelpDialog) {
+			// if (!this._oValueHelpDialog) {
 				this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.SearchHelp", this);
 				this.getView().addDependent(this._oValueHelpDialog);
 				this._oValueHelpDialog.setModel(dataModel);
 				// this._configValueHelpDialog(sInputValue);
 				this._oValueHelpDialog.open();
 
-			} else {
-				// this._configValueHelpDialog(sInputValue);
-				this._oValueHelpDialog.open();
-			}
+			// } else {
+			// 	// this._configValueHelpDialog(sInputValue);
+			// 	this._oValueHelpDialog.open();
+			// }
 			// }
 			// }, 1000);
 

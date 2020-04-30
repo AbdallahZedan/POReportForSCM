@@ -90,11 +90,14 @@ sap.ui.define([
 			oModel.create("/POHeaderSet", oEntry, {
 
 				success: function(oData, oResponse) {
-					MessageBox.success("Purchase order Updated successfully");
+					MessageToast.show("Purchase order Updated successfully");
 					// oRouter.navTo("Route_POHeader", {});
+					setTimeout(function() {
 						oRouter.navTo("Route_DisplayPO", {
-								selectedPO: docNo
-							});
+							selectedPO: docNo        
+						});
+					}, 1000);
+
 				},
 				error: function(oError) {
 					MessageBox.error("Failure - OData Service could not be called. Please check the Network Tab at Debug.");
@@ -107,7 +110,7 @@ sap.ui.define([
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 			//call functionImport of release purchase order
 			var oModel = this.getOwnerComponent().getModel(),
-				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				releaseMode = this.getView().getModel("releaseModel");
 			// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
@@ -129,9 +132,14 @@ sap.ui.define([
 				urlParameters: urlParam,
 				success: function(oData, responce) {
 					releaseMode.setData(oData);
+					setTimeout(function(){
+					oRouter.navTo("Route_DisplayPO",{
+						selectedPO: docNo
+					});
+					}, 1000);
 				},
 				error: function(oError) {
-					MessageToast.show("Failure release po request!")
+					MessageToast.show("Failure release po request!");
 				}
 			});
 

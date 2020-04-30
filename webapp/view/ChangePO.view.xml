@@ -41,12 +41,12 @@
 										<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="MultiSelect" growing="true" growingThreshold="10"
 											growingScrollToLoad="false">
 											<columns>
-												<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
+												<Column width="10%"><Text text="{i18n>ItemNumber}"/></Column>
 												<Column width="10%"><Text text="{i18n>statu}"/></Column>
 												<!--<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>-->
-												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
+												<Column width="30%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
 												<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
-												<Column width="20%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
+												<Column width="30%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
 											</columns>
 											<items>
 												<ColumnListItem detailPress="onEdit" type="Detail">

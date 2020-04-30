@@ -94,7 +94,7 @@ sap.ui.define([
 			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 			//call functionImport of release purchase order
 			var oModel = this.getOwnerComponent().getModel(),
-				// oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				releaseMode = this.getView().getModel("releaseModel");
 			// releasePoUrl = "/releasePO?Ebeln='" + docNo + "'",
@@ -121,6 +121,14 @@ sap.ui.define([
 					MessageToast.show("Failure release po request!")
 				}
 			});
+
+		},
+
+		onNavBack: function(oEvent) {
+
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+			oRouter.navTo("Route_POHeader", {});
 
 		},
 

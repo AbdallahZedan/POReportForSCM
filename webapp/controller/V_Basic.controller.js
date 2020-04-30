@@ -69,11 +69,11 @@ sap.ui.define([
 		},
 		
 		onPressTel: function(oEvent) {
-			sap.m.URLHelper.triggerSms(this._getVal(oEvent));
+			sap.m.URLHelper.triggerSms(oEvent.getSource().mProperties.text);
 		},
 
 		onPressEmail: function(oEvent) {
-			sap.m.URLHelper.triggerEmail(this._getVal(oEvent), "Test subject");	
+			sap.m.URLHelper.triggerEmail(oEvent.getSource().mProperties.text, "Test subject");	
 		},
 
 		/**

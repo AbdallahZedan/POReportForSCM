@@ -21,7 +21,7 @@
 										<Text text="{dataModel>/Bsart}"/>
 										<Label text="{i18n>releaseStatus}"/>
 										<ObjectStatus
-										 text="{dataModel>/Status}" state="{= ${dataModel>/Status} === 'CREATED' ? 'Success' : 'Error' }" />
+										 text="{releaseModel>/Status}" state="{= ${releaseModel>/Status} === 'CREATED' ? 'Success' : 'Error' }" />
 										<Label text="{i18n>Loekz}"/>
 										<Text text="{dataModel>/Loekz}"/>
 										<Label text="{i18n>lifnr}"/>
@@ -45,18 +45,18 @@
 							<uxap:ObjectPageSubSection>
 								<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
 									<columns>
-										<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>
-										<Column width="10%"><Text text="{i18n>lifnr}"/></Column>
-										<Column width="14%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>
-										<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
-										<Column width="7%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
-										<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
+										<Column width="10%"><Text text="{i18n>ItemNumber}"/></Column>
+										<Column width="10%"><Text text="{i18n>statu}"/></Column>
+										<!--<Column width="14%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Loekz}"/></Column>-->
+										<Column width="30%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>txz01}"/></Column>
+										<Column width="10%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>Ktmng}"/></Column>
+										<Column width="30%" minScreenWidth="Tablet" demandPopin="true"><Text text="{i18n>matnr}"/></Column>
 									</columns>
 									<items>
 										<ColumnListItem>
 											<Text id="itemNumberTextId" text="{dataModel>Ebelp}"/>
 											<Text id="statusTextId" text="{dataModel>Statu}"/>
-											<Text id="deletionTextId" text="{dataModel>Loekz}"/>
+											<!--<Text id="deletionTextId" text="{dataModel>Loekz}"/>-->
 											<Text id="DescriptionTextId" text="{dataModel>Txz01}"/>
 											<Text id="quantityTextId" text="{dataModel>Ktmng}"/>
 											<Text id="materialNoTextId" text="{dataModel>Matnr}"/>
