@@ -38,7 +38,7 @@
 							<uxap:ObjectPageSubSection>
 								<Panel width="auto" class="sapUiResponsiveMargin">
 									<content>
-										<Table id="itemTableId" items="{dataModel>/POItemSet}" mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
+										<Table id="itemTableId" noDataText="Add items" items="{dataModel>/POItemSet}" mode="MultiSelect" growing="true" growingThreshold="10" growingScrollToLoad="false">
 											<columns>
 												<!--<Column width="20%"><Text text="{i18n>ItemNumber}"/></Column>-->
 												<Column width="10%"><Text text="{i18n>statu}"/></Column>

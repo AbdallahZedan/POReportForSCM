@@ -43,7 +43,7 @@
 					<uxap:ObjectPageSection id="itemSectionId" title="{i18n>itemInfo}">
 						<uxap:subSections>
 							<uxap:ObjectPageSubSection>
-								<Table id="itemTableId" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
+								<Table id="itemTableId" noDataText="No items found" items="{dataModel>/POItemSet/results}" mode="SingleSelectMaster">
 									<columns>
 										<Column width="10%"><Text text="{i18n>ItemNumber}"/></Column>
 										<Column width="10%"><Text text="{i18n>statu}"/></Column>

@@ -32,32 +32,48 @@ sap.ui.define([
 		onFindPressed: function(oEvent) {
 
 			var oView = this.getView(),
+				oModel = this.getOwnerComponent().getModel(),
 				dataModel = oView.getModel("dataModel"),
 				ebeln = dataModel.getProperty("/Ebeln"),
-				ebelp = dataModel.getProperty("/Ebelp");
+				ebelp = dataModel.getProperty("/Ebelp"),
+				ebelnOb = {
+					id: this.getView().byId("ebeln_input"),
+					type: "num",
+					max: 10
+				},
+				ebelpOb = {
+					id: this.getView().byId("ebelp_input"),
+					type: "num",
+					max: 5
+				},
+				oValidator = [ebelnOb, ebelpOb],
+				validatorFlag = this.validator(oValidator);
+
 			// var ebeln = oView.byId("ebeln_input").getValue();
 			// var ebelp = oView.byId("ebelp_input").getValue();
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			if (ebeln && ebelp) {
-				oRouter.navTo("Route_ItemDetail", {
-					po: ebeln,
-					item: ebelp
+			if (validatorFlag) {
+				var oPath = "/POItemSet(Ebeln='" + ebeln + "',Ebelp='" + ebelp + "')"
+				oModel.read(oPath, {
+					method: "GET",
+					success: function(data) {
+						dataModel.setData(data);
+						sap.ui.getCore().setModel(dataModel, "dataModel");
+						oRouter.navTo("Route_ItemDetail", {
+							// po: ebeln,
+							// item: ebelp
+						});
+					},
+					error: function(oError) {
+						MessageToast.show("Failed to load item")
+					}
+
 				});
 
 			} else {
 				MessageBox.error("Please Enter Valid purchase document and item");
 			}
 		},
-
-		// alertFunc: function(message) {
-		// 	jQuery.sap.require("sap.m.MessageBox");
-
-		// 	sap.m.MessageBox.show(message, {
-		// 		icon: sap.m.MessageBox.Icon.SUCCESS,
-		// 		title: "Error",
-		// 		actions: [sap.m.MessageBox.Action.OK]
-		// 	});
-		// },
 
 		handleValueHelp: function(oEvent) {
 
@@ -66,8 +82,8 @@ sap.ui.define([
 				dataModel = oView.getModel("dataModel"),
 				// ebeln = dataModel.getProperty("/Ebeln"),
 				// ebelp = dataModel.getProperty("/Ebelp"),
-				ebeln  = this.getView().byId("ebeln_input").getValue(),
-				ebelp  = this.getView().byId("ebelp_input").getValue(),
+				ebeln = this.getView().byId("ebeln_input").getValue(),
+				ebelp = this.getView().byId("ebelp_input").getValue(),
 				// oFlage = false,
 				oFilters = [];
 
@@ -101,11 +117,11 @@ sap.ui.define([
 			// setTimeout(function() {
 			// if (oFlage) {
 			// if (!this._oValueHelpDialog) {
-				this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.SearchHelp", this);
-				this.getView().addDependent(this._oValueHelpDialog);
-				this._oValueHelpDialog.setModel(dataModel);
-				// this._configValueHelpDialog(sInputValue);
-				this._oValueHelpDialog.open();
+			this._oValueHelpDialog = sap.ui.xmlfragment(this.getView().getId(), "POReportForSCM.view.SearchHelp", this);
+			this.getView().addDependent(this._oValueHelpDialog);
+			this._oValueHelpDialog.setModel(dataModel);
+			// this._configValueHelpDialog(sInputValue);
+			this._oValueHelpDialog.open();
 
 			// } else {
 			// 	// this._configValueHelpDialog(sInputValue);
@@ -135,11 +151,35 @@ sap.ui.define([
 		},
 
 		onCancelPressed: function(oEvent) {
-				debugger;
-				this._oValueHelpDialog.destroy();
-			}
-			// _configValueHelpDialog: function(sInputValue) {
-			// 	var myModel = this.getOwnerComponent().getModel();
+			debugger;
+			this._oValueHelpDialog.destroy();
+		},
+
+		validator: function(oArray) {
+
+			var oFlag = true,
+				letterFlag = true,
+				letters = /^[A-Za-z]+$/,
+				that = this;
+
+			oArray.forEach(function(x) {
+				// if (x.type === "char") {
+				// 	var oValue = x.id.getValue();
+				// 	letterFlag = that.validateAlph(oValue);
+				// }
+				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
+					x.id.setValueState(sap.ui.core.ValueState.Error);
+					oFlag = false;
+					letterFlag = true;
+				} else {
+					x.id.setValueState(sap.ui.core.ValueState.None);
+				}
+			});
+			return oFlag;
+		},
+
+		// _configValueHelpDialog: function(sInputValue) {
+		// 	var myModel = this.getOwnerComponent().getModel();
 
 		// 	myModel.setDefaultBindingMode(sap.ui.model.BindingMode.TwoWay);
 		// 	//var poList = myModel.getProperty('/ZJ1bnfeEbelpForEbelnSet');

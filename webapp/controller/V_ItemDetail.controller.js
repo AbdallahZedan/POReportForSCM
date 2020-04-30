@@ -12,21 +12,24 @@ sap.ui.define([
 		 */
 		onInit: function(oEvent) {
 			debugger;
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.getRoute("Route_ItemDetail").attachMatched(this._onRouteFound, this);
+			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			// oRouter.getRoute("Route_ItemDetail").attachMatched(this._onRouteFound, this);
+			
+			var dataModel = sap.ui.getCore().byId("dataModel");
+			this.getView().setModel(dataModel,"dataModel");
 		},
 
-		_onRouteFound: function(oEvent) {
-			debugger;
-			var oArgument = oEvent.getParameter("arguments");
-			var po = oArgument.po;
-			var item = oArgument.item;
-			var oView = this.getView();
-			oView.bindElement({
-				path: "/POItemSet(Ebeln='" + po + "',Ebelp='" + item + "')"
-			});
-			debugger;
-		}
+		// _onRouteFound: function(oEvent) {
+		// 	debugger;
+		// 	var oArgument = oEvent.getParameter("arguments");
+		// 	var po = oArgument.po;
+		// 	var item = oArgument.item;
+		// 	var oView = this.getView();
+		// 	oView.bindElement({
+		// 		path: "/POItemSet(Ebeln='" + po + "',Ebelp='" + item + "')"
+		// 	});
+		// 	debugger;
+		// }
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

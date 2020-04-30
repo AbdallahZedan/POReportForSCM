@@ -11,18 +11,20 @@ sap.ui.define([
 		 * @memberOf POReportForSCM.view.V_Invoice_Detail
 		 */
 		onInit: function(oEvent) {
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.getRoute("Route_InvoiceDetail").attachMatched(this._onRouteFound, this);
+			// var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			// oRouter.getRoute("Route_InvoiceDetail").attachMatched(this._onRouteFound, this);
+			var dataModel = sap.ui.getCore().byId("dataModel");
+			this.getView().setModel(dataModel, "dataModel");
 		},
 
-		_onRouteFound: function(oEvent) {
-			var oArgument = oEvent.getParameter("arguments");
-			var xblnr = oArgument.InvoiceRef;
-			var oView = this.getView();
-			oView.bindElement({
-				path: "/DocDetailSet('" + xblnr + "')"
-			});
-		}
+		// _onRouteFound: function(oEvent) {
+		// 	var oArgument = oEvent.getParameter("arguments");
+		// 	var xblnr = oArgument.InvoiceRef;
+		// 	var oView = this.getView();
+		// 	oView.bindElement({
+		// 		path: "/DocDetailSet('" + xblnr + "')"
+		// 	});
+		// }
 
 	});
 

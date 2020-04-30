@@ -178,7 +178,7 @@
 				"target": ["Target_FindItem"]
 			}, {
 				"name": "Route_ItemDetail",
-				"pattern": "Item/Find/{po}/{item}",
+				"pattern": "Item/Find/:?po:/:?item:",
 				"titleTarget": "",
 				"greedy": false,
 				"target": ["Target_ItemDetail"]

@@ -30,13 +30,13 @@
 						</columns>
 						<items>
 							<ColumnListItem>
-								<Text text="{Ebeln}"/>
-								<Text text="{Ebelp}"/>
-								<Text text="{Matnr}"/>
-								<Text text="{Statu}"/>
-								<Text text="{Loekz}"/>
-								<Text text="{Txz01}"/>
-								<Text text="{Ktmng}"/>
+								<Text text="{dataModel>/Ebeln}"/>
+								<Text text="{dataModel>/Ebelp}"/>
+								<Text text="{dataModel>/Matnr}"/>
+								<Text text="{dataModel>/Statu}"/>
+								<Text text="{dataModel>/Loekz}"/>
+								<Text text="{dataModel>/Txz01}"/>
+								<Text text="{dataModel>/Ktmng}"/>
 							</ColumnListItem>
 						</items>
 					</Table>

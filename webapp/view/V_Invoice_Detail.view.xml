@@ -8,11 +8,11 @@
 						<items>
 							<ObjectListItem>
 								<attributes>
-									<ObjectAttribute text="{i18n>belnr}: {Belnr}"/>
-									<ObjectAttribute text="{i18n>bukrs}: {Bukrs}"/>
-									<ObjectAttribute text="{i18n>gjahr}: {Gjahr}"/>
-									<ObjectAttribute text="{i18n>BUZEI}: {Buzei}"/>
-									<ObjectAttribute id="Xblnr" text="{i18n>xblnr}: {Xblnr}"/>
+									<ObjectAttribute text="{i18n>belnr}: {dataModel>/Belnr}"/>
+									<ObjectAttribute text="{i18n>bukrs}: {dataModel>/Bukrs}"/>
+									<ObjectAttribute text="{i18n>gjahr}: {dataModel>/Gjahr}"/>
+									<ObjectAttribute text="{i18n>BUZEI}: {dataModel>/Buzei}"/>
+									<ObjectAttribute id="Xblnr" text="{i18n>xblnr}: {dataModel>/Xblnr}"/>
 								</attributes>
 							</ObjectListItem>
 						</items>

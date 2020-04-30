@@ -76,7 +76,45 @@ sap.ui.define([
 				oModel = this.getOwnerComponent().getModel(),
 				docNo = this.getView().getModel("dataModel").getProperty("/Ebeln"),
 				oRouter = sap.ui.core.UIComponent.getRouterFor(this),
+					bukrsInput = this.getView().byId("companyCodeInputId"),
+				bsartInput = this.getView().byId("orderTypeInputId"),
+				lifnrInput = this.getView().byId("vendorInputId"),
+				oTable = this.getView().byId("itemTableId"),
+				oItems = oTable.mAggregations.items,
+
+				bukrsOb = {
+					id: bukrsInput,
+					type: "num",
+					max: 4
+				},
+				bsartOb = {
+					id: bsartInput,
+					type: "char",
+					max: 4
+				},
+				lifnrOb = {
+					id: lifnrInput,
+					type: "num",
+					max: 10
+				},
+				oValidator = [bukrsOb, bsartOb, lifnrOb],
 				oEntry = {};
+
+			oItems.forEach(function(x) {
+				var itemOb = {
+					id: x.mAggregations.cells[2],
+					type: "num",
+					max: 13
+				};
+				oValidator.push(itemOb);
+			});
+
+			var validatorFlag = this.validator(oValidator);
+
+			if (!validatorFlag) {
+				MessageToast.show("Fill all required inputs");
+				return;
+			}
 
 			oEntry.Ebeln = dataModel.getProperty("/Ebeln");
 			oEntry.Bukrs = dataModel.getProperty("/Bukrs");
@@ -94,7 +132,7 @@ sap.ui.define([
 					// oRouter.navTo("Route_POHeader", {});
 					setTimeout(function() {
 						oRouter.navTo("Route_DisplayPO", {
-							selectedPO: docNo        
+							selectedPO: docNo
 						});
 					}, 1000);
 
@@ -132,10 +170,10 @@ sap.ui.define([
 				urlParameters: urlParam,
 				success: function(oData, responce) {
 					releaseMode.setData(oData);
-					setTimeout(function(){
-					oRouter.navTo("Route_DisplayPO",{
-						selectedPO: docNo
-					});
+					setTimeout(function() {
+						oRouter.navTo("Route_DisplayPO", {
+							selectedPO: docNo
+						});
 					}, 1000);
 				},
 				error: function(oError) {
@@ -241,6 +279,42 @@ sap.ui.define([
 
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Route_CreatePO1", {});
+
+		},
+
+		validator: function(oArray) {
+			// }
+			var oFlag = true,
+				letterFlag = true,
+				letters = /^[A-Za-z]+$/,
+				that = this;
+
+			oArray.forEach(function(x) {
+				if (x.type === "char") {
+					var oValue = x.id.getValue();
+					letterFlag = that.validateAlph(oValue);
+				}
+				if (x.id.getValue().length === 0 || x.id.getValue().length > x.max || letterFlag === false) {
+					x.id.setValueState(sap.ui.core.ValueState.Error);
+					oFlag = false;
+					letterFlag = true;
+				} else {
+					x.id.setValueState(sap.ui.core.ValueState.None);
+				}
+			});
+			return oFlag;
+		},
+
+		validateAlph: function(oValue) {
+
+			var letters = /^[A-Za-z]+$/;
+			if (oValue.match(letters)) {
+				// alert('Your name have accepted : you can try another');
+				return true;
+			} else {
+				// alert('Please input alphabet characters only');
+				return false;
+			}
 
 		}
 
