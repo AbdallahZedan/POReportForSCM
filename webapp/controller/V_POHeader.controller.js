@@ -5,8 +5,12 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/FilterType",
 	"sap/m/MessageBox",
-	"sap/m/MessageToast"
-], function(BaseController, JSONModel, Filter, FilterOperator, FilterType, MessageBox, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/ViewSettingsDialog",
+	"sap/m/ViewSettingsItem",
+	"sap/ui/model/Sorter"
+], function(BaseController, JSONModel, Filter, FilterOperator, FilterType, MessageBox, MessageToast, ViewSettingsDialog, ViewSettingsItem,
+	Sorter) {
 	"use strict";
 
 	return BaseController.extend("POReportForSCM.controller.V_POHeader", {
@@ -16,15 +20,29 @@ sap.ui.define([
 			var dataModel = new JSONModel(),
 				oModel = this.getOwnerComponent().getModel(),
 				oTable = this.getView().byId("poHeaderTableId"),
-				oFilters = [];
+				oFilters = [],
+				oNumber = "",
+				that = this;
 			// oModel.addBatchChangeOperations(batchChanges);
 			oModel.setUseBatch(false);
+			this._sorterDialog = null;
+			this._sortField = null;
+			this._sortDescending = false;
+			this._validSortFields = ["Ebeln", "Bukrs"];
+			this._initViewSettingsDialog();
 			this.getView().setModel(dataModel, "dataModel");
+
 			oModel.read("/POHeaderSet", {
 
 				filters: oFilters,
 				method: "GET",
 				success: function(data) {
+					for (var i = 0; i < data.results.length; i++) {
+						oNumber = data.results[i].Bukrs;
+						data.results[i].Bukrs = that._pad(oNumber, 4);
+						oNumber = data.results[i].Ebeln;
+						data.results[i].Ebeln = that._pad(oNumber, 10);
+					}
 					dataModel.setData(data);
 					oTable.setBusy(false);
 				},
@@ -34,7 +52,85 @@ sap.ui.define([
 				}
 
 			});
-			debugger;
+
+		},
+
+		onSortButtonPressed: function(oEvent) {
+			this._sorterDialog.open();
+		},
+
+		_initViewSettingsDialog: function() {
+			this._sorterDialog = new ViewSettingsDialog("vsd", {
+				confirm: function(oEvent) {
+					var oSortItem = oEvent.getParameter("sortItem");
+					this._applySorter(oSortItem.getKey(), oEvent.getParameter("sortDescending"));
+				}.bind(this)
+			});
+
+			// init sorting (with simple sorters as custom data for all fields)
+			this._sorterDialog.addSortItem(new ViewSettingsItem({
+				key: "Ebeln",
+				text: "Document No.",
+				selected: true // by default the MockData is sorted by EmployeeID
+			}));
+
+			this._sorterDialog.addSortItem(new ViewSettingsItem({
+				key: "Bukrs",
+				text: "Company code",
+				selected: false
+			}));
+
+		},
+
+		_applySorter: function(sSortField, sortDescending) {
+			var bSortDescending, oBinding, oSorter;
+
+			// only continue if we have a valid sort field
+			if (sSortField && this._validSortFields.indexOf(sSortField) > -1) {
+
+				// convert  the sort order to a boolean value
+				if (typeof sortDescending === "string") {
+					bSortDescending = sortDescending === "true";
+				} else if (typeof sortDescending === "boolean") {
+					bSortDescending = sortDescending;
+				} else {
+					bSortDescending = false;
+				}
+
+				// sort only if the sorter has changed
+				if (this._sortField && this._sortField === sSortField && this._sortDescending === bSortDescending) {
+					return;
+				}
+
+				this._sortField = sSortField;
+				this._sortDescending = bSortDescending;
+				oSorter = new Sorter(sSortField, bSortDescending);
+
+				// sync with View Settings Dialog
+				this._syncViewSettingsDialogSorter(sSortField, bSortDescending);
+				var oTable = this.getView().byId("poHeaderTableId");
+				// var oNumber = "";
+				// var dataModel = this.getView().getModel("dataModel");
+				// var results = dataModel.getProperty("/results");
+				// for (var i = 0; i < results.length; i++) {
+				// 	oNumber = results[i].Bukrs;
+				// 	results[i].Bukrs = this._pad(oNumber, 4);
+				// }
+				// for(var i = 0; i<oTable.mAggregations.items.length; i++){
+				// 	oNumber = oTable.mAggregations.items[i].mAggregations.cells[1].mProperties.text;
+				// 	oTable.mAggregations.items[i].mAggregations.cells[1].mProperties.text = this._pad(oNumber,4);
+				// } 
+				// this.getView().setModel(dataModel);
+				oBinding = oTable.getBinding("items");
+				oBinding.sort(oSorter);
+			}
+		},
+
+		_syncViewSettingsDialogSorter: function(sSortField, bSortDescending) {
+			// the possible keys are: "EmployeeID" | "FirstName" | "LastName"
+			// Note: no input validation is implemented here
+			this._sorterDialog.setSelectedSortItem(sSortField);
+			this._sorterDialog.setSortDescending(bSortDescending);
 		},
 
 		onFindPress: function(oEvent) {
@@ -151,6 +247,11 @@ sap.ui.define([
 			});
 		},
 
+		_pad: function(num, size) {
+			var s = num + "";
+			while (s.length < size) s = "0" + s;
+			return s;
+		},
 		// onFilterPO: function(oEvent) {
 
 		// 	// build filter array

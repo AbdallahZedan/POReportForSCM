@@ -1,35 +1,5 @@
-<!--<core:FragmentDefinition-->
-<!--	xmlns="sap.m"-->
-<!--	xmlns:core="sap.ui.core">-->
-<!--	<TableSelectDialog-->
-<!--		search=".handleSearch"-->
-<!--		confirm=".handleValueHelpClose"-->
-<!--		cancel=".handleValueHelpClose"-->
-<!--		items="{-->
-<!--		path: '/ZJ1bnfeEbelpForEbelnSet' -->
-<!--		}">-->
-<!--		<ColumnListItem selected="{selected}">-->
-<!--			<cells>-->
-<!--				<Text text="{Ebeln}" />-->
-<!--				<Text text="{Ebelp}" />-->
-<!--			</cells>-->
-<!--		</ColumnListItem>-->
-<!--		<columns>-->
-<!--			<Column>-->
-<!--				<header>-->
-<!--					<Text text="Purchase Document" />-->
-<!--				</header>-->
-<!--			</Column>-->
-<!--			<Column>-->
-<!--				<header>-->
-<!--					<Text text="Item" />-->
-<!--				</header>-->
-<!--			</Column>-->
-<!--		</columns>-->
-<!--	</TableSelectDialog>-->
-<!--</core:FragmentDefinition>-->
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog id="searchHelp_id" title="{i18n>SearchHelpDialogTitle}">
+	<Dialog id="searchHelp_id" title="{i18n>SearchHelpDialogTitle}" contentHeight="60%" contentWidth="30%">
 		<Table id="searchHelpTableId" class="sapUiResponsiveMargin" width="auto" items="{dataModel>/results}">
 			<columns>
 					<Column>
@@ -56,9 +26,3 @@
 		</beginButton>
 	</Dialog>
 </core:FragmentDefinition>
-<!--<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">-->
-<!--<SelectDialog noDataText="No Records Found" title="Select Table" liveChange="handleTableValueHelpSearch" confirm="handleTableValueHelpConfirm" cancel="handleTableValueHelpCancel" growingThreshold='10' contentWidth="50px" contentHeight="250px"><StandardListItem/>-->
-<!--<items id="item">-->
-<!--</items>-->
-<!--</SelectDialog>-->
-<!--</core:FragmentDefinition>-->
